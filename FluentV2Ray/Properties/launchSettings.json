@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "FluentV2Ray (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "FluentV2Ray (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
