@@ -1,0 +1,8 @@
+﻿{
+  "log": {
+    "loglevel": "info"
+  },
+  "routing": {},
+  "inbounds": [],
+  "outbounds": []
+}

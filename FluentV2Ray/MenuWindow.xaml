@@ -1,0 +1,23 @@
+﻿<Window
+    x:Class="FluentV2Ray.MenuWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ex="using:FluentV2Ray.Extensions.Markup"
+    xmlns:local="using:FluentV2Ray"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page x:Name="menuPage">
+        <Button x:Name="hiddenButton" Visibility="Collapsed">
+            <Button.Flyout>
+                <MenuFlyout x:Name="menuFlyout">
+                    <MenuFlyoutSubItem Text="{ex:Locale Key=RunningMode}">
+                        <RadioMenuFlyoutItem Text="{ex:Locale Key=Disabled}" />
+                        <RadioMenuFlyoutItem Text="{ex:Locale Key=Enabled}" />
+                    </MenuFlyoutSubItem>
+                    <MenuFlyoutItem Text="{ex:Locale Key=Exit}" />
+                </MenuFlyout>
+            </Button.Flyout>
+        </Button>
+    </Page>
+</Window>
