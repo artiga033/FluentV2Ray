@@ -6,16 +6,22 @@
     xmlns:ex="using:FluentV2Ray.Extensions.Markup"
     xmlns:local="using:FluentV2Ray"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Activated="Window_Activated"
     mc:Ignorable="d">
-    <Page x:Name="menuPage">
-        <Button x:Name="hiddenButton" Visibility="Collapsed">
+    <Page
+        x:Name="menuPage"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Top">
+
+        <Button x:Name="hiddenButton" Visibility="Visible">
             <Button.Flyout>
-                <MenuFlyout x:Name="menuFlyout">
+                <MenuFlyout x:Name="menuFlyout" Closed="OnFlyoutClosed">
                     <MenuFlyoutSubItem Text="{ex:Locale Key=RunningMode}">
-                        <RadioMenuFlyoutItem Text="{ex:Locale Key=Disabled}" />
                         <RadioMenuFlyoutItem Text="{ex:Locale Key=Enabled}" />
+                        <RadioMenuFlyoutItem Text="{ex:Locale Key=Disabled}" />
                     </MenuFlyoutSubItem>
-                    <MenuFlyoutItem Text="{ex:Locale Key=Exit}" />
+                    <MenuFlyoutItem Command="{Binding Path=ConfigureCommand}" Text="{ex:Locale Key=Configure}" />
+                    <MenuFlyoutItem Command="{Binding Path=ExitCommand}" Text="{ex:Locale Key=Exit}" />
                 </MenuFlyout>
             </Button.Flyout>
         </Button>

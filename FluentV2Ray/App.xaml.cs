@@ -52,8 +52,8 @@ namespace FluentV2Ray
         /// </summary>
         private static IServiceProvider ConfigureServices()
         {
-            
             var services = new ServiceCollection();
+            
             services.AddSingleton<II18NService, I18NService>();
             return services.BuildServiceProvider();
         }

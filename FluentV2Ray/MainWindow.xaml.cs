@@ -1,4 +1,6 @@
-﻿using Microsoft.UI.Xaml;
+﻿using FluentV2Ray.Utils;
+using FluentV2Ray.Views;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
@@ -12,6 +14,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using WinRT.Interop;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -23,14 +26,24 @@ namespace FluentV2Ray
     /// </summary>
     public sealed partial class MainWindow : Window
     {
-        public MainWindow()
+        private MainWindow()
         {
             this.InitializeComponent();
+            this.Closed += (_, _) => Instance = null;
         }
 
-        private void myButton_Click(object sender, RoutedEventArgs e)
+        private static MainWindow? Instance;
+        public static void Page(Type type)
         {
-            myButton.Content = "Clicked";
+            if (Instance == null)
+                Instance = new MainWindow();
+            Instance.rootFrame.Navigate(type);
+            Instance.Activate();
+            Win32Api.SetForegroundWindow(WindowNative.GetWindowHandle(Instance));
+        }
+        public static void Page<T>() where T : Page
+        {
+            Page(typeof(T));
         }
     }
 }

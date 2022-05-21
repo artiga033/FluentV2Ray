@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using FluentV2Ray.Views;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
-
 namespace FluentV2Ray.ViewModels
 {
     public partial class MenuViewModel : ObservableObject
@@ -28,5 +29,8 @@ namespace FluentV2Ray.ViewModels
         private int hiddenHeight = 700;
         public int HiddenWidth { get => hiddenWidth; set => SetProperty(ref hiddenWidth, value); }
         public int HiddenHeight { get => hiddenHeight; set => SetProperty(ref hiddenHeight, value); }
+
+        public RelayCommand ExitCommand { get; } = new RelayCommand(() =>  App.Current.Exit());
+        public RelayCommand ConfigureCommand { get; } = new RelayCommand(() => MainWindow.Page<ConfigPage>());
     }
 }

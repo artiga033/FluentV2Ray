@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FluentV2Ray.Utils
 {
-    public static class Win32Api
+    internal static class Win32Api
     {
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -16,6 +16,13 @@ namespace FluentV2Ray.Utils
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetForegroundWindow(IntPtr hWnd);
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
         //Finds a window by class name
         [DllImport("USER32.DLL")]
@@ -54,7 +61,8 @@ namespace FluentV2Ray.Utils
         public const uint SWP_NOMOVE = 0x0002;
         public const uint SWP_HIDEWINDOW = 0x0080;
         public const uint SWP_SHOWWINDOW = 0x0040;
-        
+        public const int SW_HIDE = 0;
+        public const int SW_SHOW = 5;
 
         public const int LWA_ALPHA = 0x00000002;
         public const int LWA_COLORKEY = 0x00000001;
