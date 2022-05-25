@@ -6,6 +6,11 @@
     xmlns:ex="using:FluentV2Ray.Extensions.Markup"
     xmlns:local="using:FluentV2Ray.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="using:FluentV2Ray.Interop.Model"
+    xmlns:models="using:Shadowsocks.Interop.V2Ray"
+    xmlns:protocol="using:FluentV2Ray.Interop.Model.Protocols"
+    xmlns:ss="using:Shadowsocks.Interop.V2Ray.Protocols.Shadowsocks"
+    xmlns:vmess="using:Shadowsocks.Interop.V2Ray.Protocols.VMess"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
@@ -18,17 +23,109 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="6*" />
         </Grid.RowDefinitions>
+
         <CommandBar Grid.Row="0" Grid.Column="0">
-            <AppBarButton Icon="Add" Label="{ex:Locale Key=Add}" />
-            <AppBarButton Icon="Delete" Label="{ex:Locale Key=Edit}" />
+            <AppBarButton Icon="Add" Label="{ex:Locale Key=Add}">
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Command="{x:Bind Path=ViewModel.AddCommand}" Text="{ex:Locale Key=Add, After=Vmess}">
+                            <MenuFlyoutItem.CommandParameter>
+                                <protocol:Protocol>Vmess</protocol:Protocol>
+                            </MenuFlyoutItem.CommandParameter>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem Command="{x:Bind Path=ViewModel.AddCommand}" Text="{ex:Locale Key=Add, After=Shadowsocks}">
+                            <MenuFlyoutItem.CommandParameter>
+                                <protocol:Protocol>Shadowsocks</protocol:Protocol>
+                            </MenuFlyoutItem.CommandParameter>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem Command="{x:Bind Path=ViewModel.AddCommand}" Text="{ex:Locale Key=Add, After=HTTP}">
+                            <MenuFlyoutItem.CommandParameter>
+                                <protocol:Protocol>Http</protocol:Protocol>
+                            </MenuFlyoutItem.CommandParameter>
+                        </MenuFlyoutItem>
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            <AppBarButton
+                Command="{x:Bind Path=ViewModel.DeleteCommand}"
+                CommandParameter="{x:Bind Mode=OneWay, Path=ViewModel.SelectedItem}"
+                Icon="Delete"
+                Label="{ex:Locale Key=Delete}" />
             <AppBarButton Icon="Share" Label="{ex:Locale Key=Share}" />
         </CommandBar>
+
         <ListView
             x:Name="configList"
             Grid.Row="1"
             Grid.Column="0"
             AllowDrop="True"
             CanDragItems="True"
-            CanReorderItems="True" />
+            CanReorderItems="True"
+            ItemsSource="{x:Bind Mode=OneWay, Path=ViewModel.Outbounds}"
+            SelectedItem="{x:Bind Mode=TwoWay, Path=ViewModel.SelectedItem}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:OutboundObject">
+                    <TextBlock Text="{x:Bind Mode=OneWay, Path=Tag}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <CommandBar Grid.Row="0" Grid.Column="1">
+            <AppBarButton
+                Command="{x:Bind ViewModel.ApplyCommand}"
+                Icon="Accept"
+                Label="{ex:Locale Key=SaveApply}" />
+            <AppBarButton Icon="Cancel" Label="{ex:Locale Key=Cancel}" />
+            <AppBarButton Icon="Placeholder" Label="{ex:Locale Key=Restore}" />
+        </CommandBar>
+
+        <ScrollViewer Grid.Row="1" Grid.Column="1">
+            <StackPanel x:Name="vmessConfigPanel">
+                <TextBox Header="{ex:Locale Key=Tag}" Text="{x:Bind Mode=TwoWay, Path=ViewModel.SelectedItem.Tag, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Expander
+                    HorizontalContentAlignment="Stretch"
+                    Header="{ex:Locale Key=ProtocolConfiguration}"
+                    IsExpanded="True">
+                    <StackPanel x:Name="configPanel">
+                        <StackPanel Visibility="{x:Bind ViewModel.IsVmess, Mode=OneWay}">
+                            <TextBox Header="{ex:Locale Key=Address}" Text="{x:Bind Mode=TwoWay, Path=ViewModel.VmessOutboundSettings.Vnext[0].Address, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Header="{ex:Locale Key=Port}" Text="{x:Bind Mode=TwoWay, Path=ViewModel.VmessOutboundSettings.Vnext[0].Port, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <TextBox Header="{ex:Locale Key=Id}" Text="{x:Bind Mode=TwoWay, Path=ViewModel.VmessOutboundSettings.Vnext[0].Users[0].Id, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Header="{ex:Locale Key=AlterId}" Text="{x:Bind Mode=TwoWay, Path=ViewModel.VmessOutboundSettings.Vnext[0].Users[0].AlterId, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Header="{ex:Locale Key=Security}" Text="{x:Bind Mode=TwoWay, Path=ViewModel.VmessOutboundSettings.Vnext[0].Users[0].Security, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Header="{ex:Locale Key=Level}" Text="{x:Bind Mode=TwoWay, Path=ViewModel.VmessOutboundSettings.Vnext[0].Users[0].Level, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                        <StackPanel Visibility="{x:Bind ViewModel.IsShadowsocks, Mode=OneWay}">
+                            <TextBox Header="{ex:Locale Key=Address}" Text="{x:Bind Mode=TwoWay, Path=ViewModel.SSOutboundSettings.Servers[0].Address, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Header="{ex:Locale Key=Port}" Text="{x:Bind Mode=TwoWay, Path=ViewModel.SSOutboundSettings.Servers[0].Port, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Header="{ex:Locale Key=Password}" Text="{x:Bind Mode=TwoWay, Path=ViewModel.SSOutboundSettings.Servers[0].Password, UpdateSourceTrigger=PropertyChanged}" />
+                            <ComboBox Header="{ex:Locale Key=EncryptionMethod}" Text="{x:Bind Mode=TwoWay, Path=ViewModel.SSOutboundSettings.Servers[0].Method, UpdateSourceTrigger=PropertyChanged}">
+                                <x:String>aes-256-gcm</x:String>
+                                <x:String>aes-128-gcm</x:String>
+                                <x:String>chacha20-poly1305</x:String>
+                                <!--<x:String>chacha20-ietf-poly1305</x:String>-->
+                                <x:String>none</x:String>
+                                <!--<x:String>plain</x:String>-->
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+                </Expander>
+                <Expander Header="{ex:Locale Key=TransportSettings}">
+                    <StackPanel>
+                        <ComboBox Header="{ex:Locale Key=TransportMethod}" Text="{x:Bind Mode=TwoWay, Path=ViewModel.SelectedItem.StreamSettings.Network}">
+                            <x:String>tcp</x:String>
+                            <x:String>kcp</x:String>
+                            <x:String>ws</x:String>
+                            <x:String>http</x:String>
+                            <x:String>domainsocket</x:String>
+                            <x:String>quic</x:String>
+                        </ComboBox>
+                    </StackPanel>
+
+                </Expander>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

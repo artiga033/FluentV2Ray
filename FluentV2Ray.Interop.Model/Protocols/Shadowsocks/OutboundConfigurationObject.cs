@@ -8,7 +8,7 @@ namespace Shadowsocks.Interop.V2Ray.Protocols.Shadowsocks
 
         public OutboundConfigurationObject()
         {
-            Servers = new();
+            Servers = new() { new() };
         }
 
         public OutboundConfigurationObject(string address, int port, string method, string password)

@@ -1,6 +1,6 @@
 {
   "log": {
-    "loglevel": "info"
+    "loglevel": "magicStringThatNevervalid"
   },
   "routing": {},
   "inbounds": [],

@@ -4,11 +4,11 @@ namespace Shadowsocks.Interop.V2Ray.Protocols.VMess
 {
     public class OutboundConfigurationObject
     {
-        public List<ServerObject> Vnext { get; set; }
+        public List<ServerObject> Vnext { get; set; } 
 
         public OutboundConfigurationObject()
         {
-            Vnext = new();
+            Vnext = new() { new() };
         }
 
         public OutboundConfigurationObject(string address, int port, string id)

@@ -3,6 +3,9 @@ using Microsoft.UI.Xaml;
 using System;
 using FluentV2Ray.Services.Interfaces;
 using FluentV2Ray.Services;
+using FluentV2Ray.Controller;
+using System.Diagnostics.CodeAnalysis;
+using FluentV2Ray.ViewModels;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -22,6 +25,7 @@ namespace FluentV2Ray
         {
             this.InitializeComponent();
             this.Services = ConfigureServices();
+            
         }
 
         /// <summary>
@@ -32,10 +36,10 @@ namespace FluentV2Ray
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
             m_window = new MenuWindow();
-            m_window.Activate();
+            //m_window.Activate();
         }
 
-        private Window m_window;
+        private Window? m_window;
 
         /// <summary>
         /// Gets the current <see cref="App"/> instance in use
@@ -53,8 +57,15 @@ namespace FluentV2Ray
         private static IServiceProvider ConfigureServices()
         {
             var services = new ServiceCollection();
-            
+
+            // services
             services.AddSingleton<II18NService, I18NService>();
+            // controllers
+            services.AddLogging()
+                .AddCoreConfigController()
+                .AddCoreProcessController();
+            // viewmodels
+            services.AddTransient<ConfigViewModel>();
             return services.BuildServiceProvider();
         }
     }

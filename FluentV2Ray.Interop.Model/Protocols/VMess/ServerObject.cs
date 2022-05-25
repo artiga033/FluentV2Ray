@@ -12,7 +12,7 @@ namespace Shadowsocks.Interop.V2Ray.Protocols.VMess
         {
             Address = "";
             Port = 0;
-            Users = new();
+            Users = new() { new() };
         }
 
         public ServerObject(string address, int port, string id)

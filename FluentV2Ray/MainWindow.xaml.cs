@@ -31,7 +31,7 @@ namespace FluentV2Ray
             this.InitializeComponent();
             this.Closed += (_, _) => Instance = null;
         }
-
+        
         private static MainWindow? Instance;
         public static void Page(Type type)
         {

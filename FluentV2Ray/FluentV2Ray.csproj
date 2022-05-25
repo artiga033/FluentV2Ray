@@ -45,6 +45,7 @@
 		<ProjectCapability Include="Msix" />
 	</ItemGroup>
 	<ItemGroup>
+		<Folder Include="Controls\" />
 		<Folder Include="Models\" />
 	</ItemGroup>
 	<ItemGroup>
@@ -65,6 +66,9 @@
 		</EmbeddedResource>
 	</ItemGroup>
 	<ItemGroup>
+	  <Page Update="Controls\VmessConfigPanel.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
 	  <Page Update="Views\ConfigPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </Page>
