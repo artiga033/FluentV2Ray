@@ -80,6 +80,8 @@ namespace FluentV2Ray.Controller
             try
             {
                 File.WriteAllText(ConfigPath, json);
+                _logger.LogInformation($"New config file saved.({ConfigPath})");
+
             }
             catch (Exception e)
             {

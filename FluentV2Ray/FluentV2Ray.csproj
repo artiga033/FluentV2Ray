@@ -15,9 +15,6 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
-	  <None Remove="Views\ConfigPage.xaml" />
-	</ItemGroup>
-	<ItemGroup>
 		<Content Include="Assets\SplashScreen.scale-200.png" />
 		<Content Include="Assets\LockScreenLogo.scale-200.png" />
 		<Content Include="Assets\Square150x150Logo.scale-200.png" />
@@ -46,7 +43,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Controls\" />
-		<Folder Include="Models\" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\FluentV2Ray.Controller\FluentV2Ray.Controller.csproj" />
@@ -67,9 +63,6 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Page Update="Controls\VmessConfigPanel.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
-	  <Page Update="Views\ConfigPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </Page>
 	</ItemGroup>

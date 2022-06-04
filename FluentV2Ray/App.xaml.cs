@@ -25,7 +25,7 @@ namespace FluentV2Ray
         {
             this.InitializeComponent();
             this.Services = ConfigureServices();
-            
+
         }
 
         /// <summary>
@@ -37,6 +37,13 @@ namespace FluentV2Ray
         {
             m_window = new MenuWindow();
             //m_window.Activate();
+            var setting = Services.GetRequiredService<IAppSettingService>().AppSetting;
+            var processCon = Services.GetRequiredService<CoreProcessController>();
+
+            if (setting.RunningMode == Models.RunningMode.Enabled)
+            {
+                processCon.Start();
+            }
         }
 
         private Window? m_window;
@@ -59,7 +66,8 @@ namespace FluentV2Ray
             var services = new ServiceCollection();
 
             // services
-            services.AddSingleton<II18NService, I18NService>();
+            services.AddSingleton<II18NService, I18NService>()
+                .AddSingleton<IAppSettingService, AppSettingService>();
             // controllers
             services.AddLogging()
                 .AddCoreConfigController()

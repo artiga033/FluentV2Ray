@@ -64,7 +64,7 @@ namespace FluentV2Ray
         public MenuViewModel ViewModel { get; set; } = MenuViewModel.Instance;
         private AppWindow c_window;
         private IntPtr hWnd;
-        private void HandleNotifyIconClick(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void HandleNotifyIconClick(object? sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
@@ -91,6 +91,19 @@ namespace FluentV2Ray
         private void OnFlyoutClosed(object sender, object e)
         {
             Win32Api.ShowWindow(hWnd, SW_HIDE);
+        }
+    }
+    public class EnumRadioConverter : IValueConverter
+    {
+        // value is the enum. parameter is the enum variant of the RadioItem
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            return value.Equals(parameter);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            return parameter;
         }
     }
 }

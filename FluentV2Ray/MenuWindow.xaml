@@ -6,22 +6,30 @@
     xmlns:ex="using:FluentV2Ray.Extensions.Markup"
     xmlns:local="using:FluentV2Ray"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="using:FluentV2Ray.Models"
     Activated="Window_Activated"
     mc:Ignorable="d">
     <Page
         x:Name="menuPage"
         HorizontalAlignment="Left"
         VerticalAlignment="Top">
-
         <Button x:Name="hiddenButton" Visibility="Visible">
             <Button.Flyout>
                 <MenuFlyout x:Name="menuFlyout" Closed="OnFlyoutClosed">
                     <MenuFlyoutSubItem Text="{ex:Locale Key=RunningMode}">
-                        <RadioMenuFlyoutItem Text="{ex:Locale Key=Enabled}" />
-                        <RadioMenuFlyoutItem Text="{ex:Locale Key=Disabled}" />
+                        <RadioMenuFlyoutItem
+                            Command="{x:Bind ViewModel.RunningModeEnabledCommand}"
+                            GroupName="RunningMode"
+                            IsChecked="{x:Bind ViewModel.RunningModeEnabled}"
+                            Text="{ex:Locale Key=Enabled}" />
+                        <RadioMenuFlyoutItem
+                            Command="{x:Bind ViewModel.RunningModeDisabledCommand}"
+                            GroupName="RunningMode"
+                            IsChecked="{x:Bind ViewModel.RunningModeDisabled}"
+                            Text="{ex:Locale Key=Disabled}" />
                     </MenuFlyoutSubItem>
-                    <MenuFlyoutItem Command="{Binding Path=ConfigureCommand}" Text="{ex:Locale Key=Configure}" />
-                    <MenuFlyoutItem Command="{Binding Path=ExitCommand}" Text="{ex:Locale Key=Exit}" />
+                    <MenuFlyoutItem Command="{x:Bind Path=ViewModel.ConfigureCommand}" Text="{ex:Locale Key=Configure}" />
+                    <MenuFlyoutItem Command="{x:Bind Path=ViewModel.ExitCommand}" Text="{ex:Locale Key=Exit}" />
                 </MenuFlyout>
             </Button.Flyout>
         </Button>

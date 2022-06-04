@@ -40,10 +40,13 @@ namespace FluentV2Ray.Controller
         }
         public void Stop()
         {
-            p.Kill();
-            p.Dispose();
-            p = null;
-            this.IsRunning = false;
+            if (IsRunning)
+            {
+                p.Kill();
+                p.Dispose();
+                p = null;
+                this.IsRunning = false;
+            }
         }
         public void Restart()
         {
