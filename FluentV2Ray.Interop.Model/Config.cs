@@ -2,6 +2,7 @@ using System.Collections.Generic;
 
 namespace Shadowsocks.Interop.V2Ray
 {
+    [Obsolete("Use FluentV2Ray.Interop.Model.ConfigObject")]
     public class Config
     {
         public LogObject? Log { get; set; }

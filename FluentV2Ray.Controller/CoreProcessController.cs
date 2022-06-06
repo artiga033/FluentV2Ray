@@ -15,7 +15,9 @@ namespace FluentV2Ray.Controller
         public string ConfigPath { get; set; } = "coreConfig.json";
 
         public bool IsRunning = false;
-        public StreamReader? StandardOutput { get => p?.StandardOutput; }
+        public StreamReader? StandardOutput => p?.StandardOutput;
+        public event DataReceivedEventHandler? OutputDataReceived;
+        public event DataReceivedEventHandler? ErrorDataReceived;
         private Process? p = null;
 
         public CoreProcessController(CoreConfigController configCon)
@@ -23,6 +25,7 @@ namespace FluentV2Ray.Controller
             this._configCon = configCon;
             this.ConfigPath = configCon.ConfigPath;
         }
+
         public void Start()
         {
             if (IsRunning)
@@ -33,9 +36,15 @@ namespace FluentV2Ray.Controller
             p = new Process();
             p.StartInfo.FileName = ExecutablePath;
             p.StartInfo.Arguments = $"-c {ConfigPath}";
-            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.UseShellExecute = false;
             p.StartInfo.CreateNoWindow = true;
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.RedirectStandardError = true;
             p.Start();
+            p.BeginOutputReadLine();
+            p.BeginErrorReadLine();
+            p.OutputDataReceived += (s, e) => { this.OutputDataReceived?.Invoke(s, e); };
+            p.ErrorDataReceived += (s, e) => { this.ErrorDataReceived?.Invoke(s, e); };
             this.IsRunning = true;
         }
         public void Stop()

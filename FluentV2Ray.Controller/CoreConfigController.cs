@@ -68,7 +68,7 @@ namespace FluentV2Ray.Controller
             }
             else
             {
-                config = new Config();
+                config = Config.Default;
             }
         }
         /// <summary>

@@ -2,6 +2,9 @@ namespace Shadowsocks.Interop.V2Ray.Transport
 {
     public class StreamSettingsObject : TransportObject
     {
+        private SockoptObject? sockopt;
+        private TlsObject? tlsSettings;
+
         /// <summary>
         /// Gets or sets the transport protocol type.
         /// Defaults to "tcp".
@@ -16,10 +19,10 @@ namespace Shadowsocks.Interop.V2Ray.Transport
         /// </summary>
         public string? Security { get; set; }
 
-        public TlsObject? TlsSettings { get; set; }
-        public SockoptObject? Sockopt { get; set; }
+        public TlsObject? TlsSettings { get => CacheGetter(tlsSettings); set => tlsSettings = value; }
+        public SockoptObject? Sockopt { get => CacheGetter(sockopt); set => sockopt = value; }
 
-        public static StreamSettingsObject DefaultWsTls => new()
+        public static StreamSettingsObject DefaultWsTls() => new()
         {
             Network = "ws",
             Security = "tls",

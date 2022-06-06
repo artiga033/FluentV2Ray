@@ -10,11 +10,12 @@ using Shadowsocks.Interop.V2Ray;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.Input;
 using FluentV2Ray.Interop.Model.Protocols;
-using Protocols = Shadowsocks.Interop.V2Ray.Protocols;
+using P = Shadowsocks.Interop.V2Ray.Protocols;
+
 
 namespace FluentV2Ray.ViewModels
 {
-    public class ConfigViewModel : ObservableObject
+    public partial class ConfigViewModel : ObservableObject
     {
         private readonly CoreConfigController _configController;
         private readonly CoreProcessController _processController;
@@ -32,25 +33,27 @@ namespace FluentV2Ray.ViewModels
                 OnPropertyChanged(nameof(IsVmess));
                 OnPropertyChanged(nameof(VmessOutboundSettings));
                 OnPropertyChanged(nameof(SSOutboundSettings));
+                OnPropertyChanged(nameof(StreamSettings));
+                OnPropertyChanged(nameof(IsDomainSocket));
+                OnPropertyChanged(nameof(IsHttpTrans));
+                OnPropertyChanged(nameof(IsTcp));
+                OnPropertyChanged(nameof(IsKcp));
+                OnPropertyChanged(nameof(IsWs));
+                OnPropertyChanged(nameof(IsQuic));
             }
         }
-        public bool IsVmess => selectedItem?.Protocol == Protocol.Vmess;
-        public Protocols.VMess.OutboundConfigurationObject? VmessOutboundSettings { get => selectedItem?.Settings as Protocols.VMess.OutboundConfigurationObject; }
-        public bool IsShadowsocks => selectedItem?.Protocol == Protocol.Shadowsocks;
-        public Protocols.Shadowsocks.OutboundConfigurationObject? SSOutboundSettings { get => selectedItem?.Settings as Protocols.Shadowsocks.OutboundConfigurationObject; }
-        public bool IsHttp => selectedItem?.Protocol == Protocol.Http;
-        public bool IsVless => selectedItem?.Protocol == Protocol.Vless;
-        public ConfigViewModel(CoreConfigController configController,CoreProcessController processController)
+
+        public ConfigViewModel(CoreConfigController configController, CoreProcessController processController)
         {
             this._configController = configController;
             this._processController = processController;
-            
+
             // If the IList Object is not ObservableCollection, the listview object can't respond to collection change;
             // So we'll make it an ObservableCollection, copying the original list.
             if (_configController.Config.Outbounds is not ObservableCollection<OutboundObject>)
                 _configController.Config.Outbounds = new ObservableCollection<OutboundObject>(_configController.Config.Outbounds);
             this.Outbounds = (ObservableCollection<OutboundObject>)_configController.Config.Outbounds;
-            
+
             #region Initialize Commands
             this.AddCommand = new(Add);
             this.DeleteCommand = new(Delete);
@@ -64,11 +67,11 @@ namespace FluentV2Ray.ViewModels
         {
             Outbounds.Add(protocol switch
             {
-                Protocol.Vmess => new OutboundObject() { Tag = "New Vmess Config", Protocol = Protocol.Vmess, Settings = new Protocols.VMess.OutboundConfigurationObject() },
-                Protocol.Shadowsocks => new OutboundObject() { Tag = "New Shadowsocks Config", Protocol = Protocol.Shadowsocks, Settings = new Protocols.Shadowsocks.OutboundConfigurationObject() },
+                Protocol.Vmess => new OutboundObject() { Tag = "New Vmess Config", Protocol = Protocol.Vmess, Settings = new P.VMess.OutboundConfigurationObject() },
+                Protocol.Shadowsocks => new OutboundObject() { Tag = "New Shadowsocks Config", Protocol = Protocol.Shadowsocks, Settings = new P.Shadowsocks.OutboundConfigurationObject() },
                 //Protocol.Http => new OutboundObject() { Tag = "New Http Config", Protocol = Protocol.Http, Settings = new Protocols.Http.OutboundConfigurationObject() },
                 _ => throw new NotSupportedException()
-            }) ;
+            });
         }
         public void Delete(OutboundObject? target)
         {

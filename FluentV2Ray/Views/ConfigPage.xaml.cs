@@ -33,5 +33,6 @@ namespace FluentV2Ray.Views
         }
         public ConfigViewModel ViewModel { get; set; } = App.Current.Services.GetRequiredService<ConfigViewModel>();
 
+     
     }
 }
