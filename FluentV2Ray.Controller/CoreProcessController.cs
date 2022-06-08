@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentV2Ray.Controller.Utils;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,7 +20,7 @@ namespace FluentV2Ray.Controller
         public event DataReceivedEventHandler? OutputDataReceived;
         public event DataReceivedEventHandler? ErrorDataReceived;
         private Process? p = null;
-
+        private Job coreProcessJob = new Job();
         public CoreProcessController(CoreConfigController configCon)
         {
             this._configCon = configCon;
@@ -45,6 +46,8 @@ namespace FluentV2Ray.Controller
             p.BeginErrorReadLine();
             p.OutputDataReceived += (s, e) => { this.OutputDataReceived?.Invoke(s, e); };
             p.ErrorDataReceived += (s, e) => { this.ErrorDataReceived?.Invoke(s, e); };
+
+            coreProcessJob.AddProcess(p.Handle);
             this.IsRunning = true;
         }
         public void Stop()

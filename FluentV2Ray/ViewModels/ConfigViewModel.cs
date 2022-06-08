@@ -11,7 +11,7 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.Input;
 using FluentV2Ray.Interop.Model.Protocols;
 using P = Shadowsocks.Interop.V2Ray.Protocols;
-
+using Shadowsocks.Interop.V2Ray.Transport;
 
 namespace FluentV2Ray.ViewModels
 {
@@ -40,6 +40,8 @@ namespace FluentV2Ray.ViewModels
                 OnPropertyChanged(nameof(IsKcp));
                 OnPropertyChanged(nameof(IsWs));
                 OnPropertyChanged(nameof(IsQuic));
+                TransportSelectionChanged(this, null);
+                TlsSelectionChanged(this, null);
             }
         }
 
@@ -82,9 +84,11 @@ namespace FluentV2Ray.ViewModels
         }
         public void Apply()
         {
+          
             _configController.Save();
             _processController.Restart();
         }
+       
         // TODO: From here, it seems we'd better make a interface for all the outbound settings model class.
         private T? TryConvertOutboutSetting<T>(OutboundObject outboundObject) where T : class
         {

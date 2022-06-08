@@ -172,7 +172,7 @@
                                     OnContent="{ex:Locale Key=On}" />
                             </StackPanel>
                             <StackPanel x:Name="httpSettings" Visibility="{x:Bind ViewModel.IsHttpTrans}">
-                                <TextBox Header="{ex:Locale Key=Host}" Text="{x:Bind Mode=TwoWay, Path=ViewModel.StreamSettings.HttpSettings.Host}" />
+                                <TextBox Header="{ex:Locale Key=Host}" Text="{x:Bind Mode=TwoWay, Path=ViewModel.StreamSettings.HttpSettings.Host[0]}" />
                                 <TextBox Header="{ex:Locale Key=Path}" Text="{x:Bind Mode=TwoWay, Path=ViewModel.StreamSettings.HttpSettings.Path}" />
                             </StackPanel>
                             <StackPanel x:Name="dsSettings" Visibility="{x:Bind ViewModel.IsDomainSocket}">

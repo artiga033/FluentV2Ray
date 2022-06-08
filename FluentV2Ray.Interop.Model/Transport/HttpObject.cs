@@ -9,7 +9,7 @@ namespace Shadowsocks.Interop.V2Ray.Transport
 
         public HttpObject()
         {
-            Host = new();
+            Host = new() { "" };
             Path = "/";
         }
     }

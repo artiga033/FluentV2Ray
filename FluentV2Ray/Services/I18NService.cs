@@ -30,7 +30,9 @@ namespace FluentV2Ray.Services
             string locale = "%" + key + "%";
             try
             {
-                locale = resourceLoader.GetString(key); ;
+                var raw = resourceLoader.GetString(key);
+                if (!string.IsNullOrWhiteSpace(raw))
+                    locale = raw;
             }
             catch
             {

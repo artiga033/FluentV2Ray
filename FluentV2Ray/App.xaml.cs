@@ -6,6 +6,7 @@ using FluentV2Ray.Services;
 using FluentV2Ray.Controller;
 using System.Diagnostics.CodeAnalysis;
 using FluentV2Ray.ViewModels;
+using System.Diagnostics;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -25,9 +26,7 @@ namespace FluentV2Ray
         {
             this.InitializeComponent();
             this.Services = ConfigureServices();
-
         }
-
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used such as when the application is launched to open a specific file.
