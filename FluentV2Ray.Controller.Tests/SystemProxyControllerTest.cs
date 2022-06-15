@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -21,11 +22,12 @@ namespace FluentV2Ray.Controller.Tests
         [Fact]
         public void SetGlobalProxy_Success()
         {
-            SystemProxyController.SetIEProxy(true, true, "localhost:2552", string.Empty);
+            SystemProxyController sysproxyController = new SystemProxyController(new CoreConfigController(NullLogger<CoreConfigController>.Instance));
+            sysproxyController.SetIEProxy(true, true, "localhost:2552", string.Empty);
             var p = System.Net.WebRequest.DefaultWebProxy?.GetProxy(new("https://github.com")) ?? throw new Exception();
             Assert.Equal("localhost", p.Host);
             Assert.Equal(2552, p.Port);
-            SystemProxyController.ResetIEProxy();
+            sysproxyController.ResetIEProxy();
         }
     }
 }

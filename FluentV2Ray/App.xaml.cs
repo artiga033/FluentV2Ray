@@ -38,10 +38,18 @@ namespace FluentV2Ray
             //m_window.Activate();
             var setting = Services.GetRequiredService<IAppSettingService>().AppSetting;
             var processCon = Services.GetRequiredService<CoreProcessController>();
+            var sysproxyCon = Services.GetRequiredService<SystemProxyController>();
 
-            if (setting.RunningMode == Models.RunningMode.Enabled)
+            switch (setting.RunningMode)
             {
-                processCon.Start();
+                case Models.RunningMode.Enabled:
+                    processCon.Start();
+                    break;
+                case Models.RunningMode.SysProxy:
+                    processCon.Start();
+                    sysproxyCon.SetIEProxy();
+                    break;
+                default: break;
             }
         }
 
@@ -70,7 +78,8 @@ namespace FluentV2Ray
             // controllers
             services.AddLogging()
                 .AddCoreConfigController()
-                .AddCoreProcessController();
+                .AddCoreProcessController()
+                .AddSingleton<SystemProxyController>();
             // viewmodels
             services.AddTransient<ConfigViewModel>();
             return services.BuildServiceProvider();

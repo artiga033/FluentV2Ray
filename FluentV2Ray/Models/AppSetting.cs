@@ -13,6 +13,7 @@ namespace FluentV2Ray.Models
     public enum RunningMode
     {
         Disabled,
-        Enabled
+        Enabled,
+        SysProxy
     }
 }

@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using System.Diagnostics.CodeAnalysis;
 using FluentV2Ray.Interop.Model.Protocols;
 using Shadowsocks.Interop.V2Ray.Transport;
+using System.Diagnostics;
 
 namespace FluentV2Ray.Controller
 {
@@ -26,12 +27,14 @@ namespace FluentV2Ray.Controller
         public CoreConfigController(ILogger<CoreConfigController> logger)
         {
             this._logger = logger;
+            Init();
             this.Load();
         }
         public CoreConfigController(ILogger<CoreConfigController> logger, string confpath)
         {
             this.ConfigPath = confpath;
             this._logger = logger;
+            Init();
             this.Load();
         }
         public JsonSerializerOptions ConfigJsonSerializerOptions { get; } = new JsonSerializerOptions()
@@ -40,6 +43,10 @@ namespace FluentV2Ray.Controller
             WriteIndented = true,
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         };
+        private void Init()
+        {
+            //this.ConfigJsonSerializerOptions.Converters.Add(new EmptyNullConverter());
+        }
         /// <summary>
         /// Load configuration file.
         /// </summary>
@@ -61,7 +68,7 @@ namespace FluentV2Ray.Controller
                             outbound.Settings = JsonSerializer.Deserialize(settingEle, t, ConfigJsonSerializerOptions);
                         }
                     }
-                    this.FormatConfigForApp();
+                    this.InitConfigForApp();
                 }
                 catch (Exception e)
                 {
@@ -103,25 +110,32 @@ namespace FluentV2Ray.Controller
         /// <para>Formats the <see cref="Config"/> object for this App.</para>
         /// <para>This will do operations like initializing the nullable properties, setting collection length to 1...etc.</para>
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         private void FormatConfigForApp()
         {
+            throw new NotImplementedException();
+
             Format(config);
             void Format(object obj)
             {
-                var properties = obj.GetType().GetProperties();
+                Debug.WriteLine(obj.ToString());
+                var properties = obj.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
                 foreach (var property in properties)
                 {
                     var value = property.GetValue(obj);
-                    if (value is null)
+                    bool isCollection = (!property.PropertyType.Equals(typeof(string)))
+                        && property.PropertyType.GetInterface(nameof(System.Collections.ICollection)) != null
+                        && property.PropertyType.IsGenericType;
+                    if (isCollection)
                     {
-                        property.SetValue(obj, Activator.CreateInstance(property.PropertyType));
-                        if (!IsSimple(property.PropertyType))
-                            Format(property.GetValue(obj) ?? throw new ArgumentNullException());
+                        //property.SetValue(obj, new[] { Activator.CreateInstance(property.PropertyType.GetGenericTypeDefinition()) });
                     }
-                    if (property.PropertyType.GetInterfaces().Contains(typeof(ICollection<>)) && property.PropertyType.IsGenericType)
+                    else if (value is null)
                     {
-                        property.SetValue(obj, new[] { Activator.CreateInstance(property.PropertyType) });
+                        property.SetValue(obj, property.PropertyType.Equals(typeof(string)) ? string.Empty : Activator.CreateInstance(property.PropertyType));
                     }
+                    if (!isCollection && !IsSimple(property.PropertyType))
+                        Format(property.GetValue(obj) ?? throw new ArgumentNullException());
                 }
             }
             // https://stackoverflow.com/questions/863881/how-do-i-tell-if-a-type-is-a-simple-type-i-e-holds-a-single-value
@@ -149,7 +163,14 @@ namespace FluentV2Ray.Controller
             {
                 if (o.StreamSettings != null)
                 {
-                    var tStreamSetting = new StreamSettingsObject();
+                    var tStreamSetting = new StreamSettingsObject()
+                    {
+                        Network = o.StreamSettings.Network,
+                        Security = o.StreamSettings.Security,
+                        Sockopt = o.StreamSettings.Sockopt,
+                        TlsSettings = o.StreamSettings.TlsSettings,
+                    };
+
                     switch (o.StreamSettings.Network)
                     {
                         case "tcp": tStreamSetting.TcpSettings = o.StreamSettings.TcpSettings; break;
@@ -164,7 +185,59 @@ namespace FluentV2Ray.Controller
                 }
             }
         }
+        /// <summary>
+        /// <para>Initialize the <see cref="Config"/> object for this App.</para>
+        /// <para>This will do operations like initializing the nullable properties, setting collection length to 1...etc.</para>
+        /// <para>An opposite operation to <see cref="ClearConfigForCore"/></para>
+        /// </summary>
+        private void InitConfigForApp()
+        {
+            var outbounds = this.Config.Outbounds;
+            foreach (var o in outbounds)
+            {
+                if (o.StreamSettings == null)
+                    o.StreamSettings = StreamSettingsObject.DefaultWsTlsAllInit();
+                else
+                {
+                    var t = StreamSettingsObject.DefaultWsTlsAllInit();
+                    t.Network = o.StreamSettings.Network;
+                    t.Security = o.StreamSettings.Security;
+                    t.Sockopt = o.StreamSettings.Sockopt;
+                    t.TlsSettings = o.StreamSettings.TlsSettings;
+                    switch (o.StreamSettings.Network)
+                    {
+                        case "tcp": t.TcpSettings = o.StreamSettings.TcpSettings; break;
+                        case "kcp": t.KcpSettings = o.StreamSettings.KcpSettings; break;
+                        case "ws": t.WsSettings = o.StreamSettings.WsSettings; break;
+                        case "http": t.HttpSettings = o.StreamSettings.HttpSettings; break;
+                        case "domainsocket": t.DsSettings = o.StreamSettings.DsSettings; break;
+                        case "quic": t.QuicSettings = o.StreamSettings.QuicSettings; break;
+                        default: break;
+                    }
+                    o.StreamSettings = t;
+                }
+            }
+        }
     }
+
+    public class EmptyNullConverter : JsonConverter<string>
+    {
+        public override string? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            return reader.GetString();
+        }
+
+        public override void Write(Utf8JsonWriter writer, string value, JsonSerializerOptions options)
+        {
+            if (!string.IsNullOrEmpty(value))
+            {
+                writer.WriteStringValue(value);
+            }
+            else
+                writer.WriteNull("");
+        }
+    }
+
     public static partial class ControllerDIExtensions
     {
         /// <summary>

@@ -19,6 +19,7 @@ namespace FluentV2Ray.ViewModels
     public partial class MenuViewModel : ObservableObject
     {
         private readonly CoreProcessController _processController = App.Current.Services.GetRequiredService<CoreProcessController>();
+        private readonly SystemProxyController _sysproxyController = App.Current.Services.GetRequiredService<SystemProxyController>();
         private readonly IAppSettingService _setting;
         private static MenuViewModel unique = new MenuViewModel();
         public static MenuViewModel Instance => unique;
@@ -34,6 +35,7 @@ namespace FluentV2Ray.ViewModels
             this.ExitCommand = new(() =>
             {
                 _processController.Stop();
+                _sysproxyController.ResetIEProxy();
                 Application.Exit();
                 Environment.Exit(0);
             });
@@ -41,13 +43,22 @@ namespace FluentV2Ray.ViewModels
             {
                 appSetting.RunningMode = RunningMode.Enabled;
                 _setting.SaveAppSetting();
+                _sysproxyController.ResetIEProxy();
                 _processController.Restart();
             });
             this.RunningModeDisabledCommand = new(() =>
             {
                 appSetting.RunningMode = RunningMode.Disabled;
                 _setting.SaveAppSetting();
+                _sysproxyController.ResetIEProxy();
                 _processController.Stop();
+            });
+            this.RunningModeSysProxyCommand = new(() =>
+            {
+                appSetting.RunningMode = RunningMode.SysProxy;
+                _setting.SaveAppSetting();
+                _processController.Restart();
+                _sysproxyController.SetIEProxy();
             });
         }
         private System.Windows.Forms.NotifyIcon notifyIcon = new();
@@ -60,9 +71,11 @@ namespace FluentV2Ray.ViewModels
         public int HiddenHeight { get => hiddenHeight; set => SetProperty(ref hiddenHeight, value); }
         #region RunningModeProperties
         public bool RunningModeEnabled => appSetting.RunningMode == RunningMode.Enabled;
+        public bool RunningModeSysProxy => appSetting.RunningMode == RunningMode.SysProxy;
         public bool RunningModeDisabled => appSetting.RunningMode == RunningMode.Disabled;
         #endregion
         public RelayCommand RunningModeEnabledCommand { get; }
+        public RelayCommand RunningModeSysProxyCommand { get; }
         public RelayCommand RunningModeDisabledCommand { get; }
         public RelayCommand ExitCommand { get; }
         public RelayCommand ConfigureCommand { get; } = new RelayCommand(() => MainWindow.Page<ConfigPage>());

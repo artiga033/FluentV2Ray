@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace FluentV2Ray.Controller
 {
-    public static class SystemProxyController
+    public class SystemProxyController
     {
-        private readonly static string _userWininetConfigFile = Path.Combine(Path.GetTempPath(), "user-wininet.json");
-        private readonly static string _exeFilePath = Path.Combine(Path.GetTempPath(), "sysproxy.exe");
+        private readonly string _userWininetConfigFile = Path.Combine(Path.GetTempPath(), "user-wininet.json");
+        private readonly string _exeFilePath = Path.Combine(Path.GetTempPath(), "sysproxy.exe");
 
-        private readonly static string[] _lanIP = {
+        private readonly string[] _lanIP = {
             "<local>",
             "localhost",
             "127.*",
@@ -40,7 +40,7 @@ namespace FluentV2Ray.Controller
             "192.168.*"
             };
 
-        private static string _queryStr;
+        private string _queryStr;
 
         // In general, this won't change
         // format:
@@ -48,7 +48,7 @@ namespace FluentV2Ray.Controller
         //  <proxy-server><CR-LF>
         //  <bypass-list><CR-LF>
         //  <pac-url>
-        private static SysproxyConfig _userSettings = null;
+        private SysproxyConfig _userSettings = null;
 
         enum RET_ERRORS : int
         {
@@ -60,8 +60,10 @@ namespace FluentV2Ray.Controller
             INVAILD_OPTION_COUNT = 5,
         };
 
-        static SystemProxyController()
+        public SystemProxyController(CoreConfigController coreConfigController)
         {
+            this._coreConfigController = coreConfigController;
+
             try
             {
                 UncompressFile(_exeFilePath,
@@ -91,7 +93,18 @@ namespace FluentV2Ray.Controller
             }
         }
 
-        public static void SetIEProxy(bool enable, bool global, string proxyServer, string pacURL)
+        private readonly CoreConfigController _coreConfigController;
+        /// <summary>
+        /// Sets the System IE Proxy with Current <see cref="CoreConfigController"/> 's Config
+        /// </summary>
+        public void SetIEProxy()
+        {
+            var httpIn = _coreConfigController.Config.Inbounds.FirstOrDefault(x => x.Protocol == "http");
+            string addr = "127.0.0.1:" + httpIn?.Port ?? throw new ArgumentException("http inbound port not set");
+            this.SetIEProxy(true, true, addr, "");
+        }
+
+        public void SetIEProxy(bool enable, bool global, string proxyServer, string pacURL)
         {
             Read();
 
@@ -133,7 +146,7 @@ namespace FluentV2Ray.Controller
         }
 
         // set system proxy to 1 (null) (null) (null)
-        public static bool ResetIEProxy()
+        public bool ResetIEProxy()
         {
             try
             {
@@ -151,7 +164,7 @@ namespace FluentV2Ray.Controller
             return true;
         }
 
-        private static void ExecSysproxy(string arguments)
+        private void ExecSysproxy(string arguments)
         {
             // using event to avoid hanging when redirect standard output/error
             // ref: https://stackoverflow.com/questions/139593/processstartinfo-hanging-on-waitforexit-why
@@ -237,7 +250,7 @@ namespace FluentV2Ray.Controller
             }
         }
 
-        private static void Save()
+        private void Save()
         {
             try
             {
@@ -254,12 +267,12 @@ namespace FluentV2Ray.Controller
             }
         }
 
-        private static void Read()
+        private void Read()
         {
             try
             {
                 string configContent = File.ReadAllText(_userWininetConfigFile);
-                _userSettings = JsonSerializer.Deserialize<SysproxyConfig>(configContent)??throw new JsonException();
+                _userSettings = JsonSerializer.Deserialize<SysproxyConfig>(configContent) ?? throw new JsonException();
             }
             catch (Exception)
             {
@@ -271,7 +284,7 @@ namespace FluentV2Ray.Controller
             }
         }
 
-        private static void ParseQueryStr(string str)
+        private void ParseQueryStr(string str)
         {
             string[] userSettingsArr = str.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
 

@@ -11,6 +11,7 @@
     xmlns:models="using:Shadowsocks.Interop.V2Ray"
     xmlns:protocol="using:FluentV2Ray.Interop.Model.Protocols"
     xmlns:ss="using:Shadowsocks.Interop.V2Ray.Protocols.Shadowsocks"
+    xmlns:uc="using:FluentV2Ray.Controls"
     xmlns:vmess="using:Shadowsocks.Interop.V2Ray.Protocols.VMess"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
@@ -138,22 +139,7 @@
                                             FontSize="16"
                                             FontWeight="Bold"
                                             Text="{ex:Locale Key=WsHttpHeader}" />
-                                        <ItemsRepeater ItemsSource="{x:Bind ViewModel.StreamSettings.WsSettings.Headers}">
-                                            <ItemsRepeater.ItemTemplate>
-                                                <DataTemplate>
-                                                    <RelativePanel>
-                                                        <TextBox
-                                                            x:Name="headerKeyBox"
-                                                            Header="{ex:Locale Key=Key}"
-                                                            Text="{Binding Mode=TwoWay, Path=Key}" />
-                                                        <TextBox
-                                                            Header="{ex:Locale Key=Value}"
-                                                            RelativePanel.RightOf="headerKeyBox"
-                                                            Text="{Binding Mode=TwoWay, Path=Value}" />
-                                                    </RelativePanel>
-                                                </DataTemplate>
-                                            </ItemsRepeater.ItemTemplate>
-                                        </ItemsRepeater>
+                                        <uc:DictConfigEditor Dict="{x:Bind ViewModel.StreamSettings.WsSettings.Headers}" />
                                     </StackPanel>
                                 </Border>
 
@@ -202,7 +188,7 @@
                                     IsOn="{x:Bind ViewModel.StreamSettings.TlsSettings.AllowInsecure, Mode=TwoWay}"
                                     OffContent="{ex:Locale Key=Disallow}"
                                     OnContent="{ex:Locale Key=Allow}" />
-                                <TextBox Header="{ex:Locale Key=ServerName}" Text="{x:Bind ViewModel.StreamSettings.TlsSettings.ServerName, Mode=TwoWay}" />
+                                <TextBox Header="{ex:Locale Key=ServerName}" Text="{x:Bind ViewModel.StreamSettings.TlsSettings.ServerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                         </StackPanel>
                     </Expander>

@@ -121,123 +121,138 @@
     <value>运行模式</value>
   </data>
   <data name="Configure" xml:space="preserve">
-    <value />
+    <value>配置...</value>
   </data>
   <data name="Add" xml:space="preserve">
-    <value />
+    <value>添加</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value />
+    <value>删除</value>
   </data>
   <data name="Share" xml:space="preserve">
-    <value />
+    <value>分享</value>
   </data>
   <data name="SaveApply" xml:space="preserve">
-    <value />
+    <value>保存并应用</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value />
+    <value>Cancel</value>
   </data>
   <data name="Restore" xml:space="preserve">
-    <value />
+    <value>恢复</value>
   </data>
   <data name="Tag" xml:space="preserve">
-    <value />
+    <value>Tag</value>
   </data>
   <data name="ProtocolConfiguration" xml:space="preserve">
-    <value />
+    <value>协议配置</value>
   </data>
   <data name="Address" xml:space="preserve">
-    <value />
+    <value>地址</value>
   </data>
   <data name="Port" xml:space="preserve">
-    <value />
+    <value>端口</value>
   </data>
   <data name="Id" xml:space="preserve">
-    <value />
+    <value>Id</value>
   </data>
   <data name="AlterId" xml:space="preserve">
-    <value />
+    <value>AlterId</value>
   </data>
   <data name="Security" xml:space="preserve">
-    <value />
+    <value>加密方式</value>
   </data>
   <data name="Level" xml:space="preserve">
-    <value />
+    <value>Level</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value />
+    <value>密码</value>
   </data>
   <data name="EncryptionMethod" xml:space="preserve">
-    <value />
+    <value>加密方式</value>
   </data>
   <data name="TransportSettings" xml:space="preserve">
-    <value />
+    <value>传输设置</value>
   </data>
   <data name="TransportMethod" xml:space="preserve">
-    <value />
+    <value>传输方式</value>
   </data>
   <data name="Path" xml:space="preserve">
-    <value />
+    <value>路径</value>
   </data>
   <data name="WsHttpHeader" xml:space="preserve">
-    <value />
+    <value>WebSocket的HTTP标头</value>
   </data>
   <data name="Key" xml:space="preserve">
-    <value />
+    <value>Key</value>
   </data>
   <data name="Value" xml:space="preserve">
-    <value />
+    <value>Value</value>
   </data>
   <data name="KcpSeed" xml:space="preserve">
-    <value />
+    <value>KcpSeed</value>
   </data>
   <data name="ReadBufferSize" xml:space="preserve">
-    <value />
+    <value>ReadBufferSize</value>
   </data>
   <data name="WriteBufferSize" xml:space="preserve">
-    <value />
+    <value>WriteBufferSize</value>
   </data>
   <data name="DownlinkCapacity" xml:space="preserve">
-    <value />
+    <value>DownlinkCapacity</value>
   </data>
   <data name="UplinkCapacity" xml:space="preserve">
-    <value />
+    <value>UplinkCapacity</value>
   </data>
   <data name="Congestion" xml:space="preserve">
-    <value />
+    <value>Congestion</value>
   </data>
   <data name="Off" xml:space="preserve">
-    <value />
+    <value>关</value>
   </data>
   <data name="On" xml:space="preserve">
-    <value />
+    <value>开</value>
   </data>
   <data name="Host" xml:space="preserve">
-    <value />
+    <value>Host</value>
   </data>
   <data name="IsAbstrackDomainSocket" xml:space="preserve">
-    <value />
+    <value>IsAbstractDomainSocket</value>
   </data>
   <data name="UsePadding" xml:space="preserve">
-    <value />
+    <value>UsePadding</value>
   </data>
   <data name="EncryptionKey" xml:space="preserve">
-    <value />
+    <value>加密密钥</value>
   </data>
   <data name="EnableTls" xml:space="preserve">
-    <value />
+    <value>启用 TLS</value>
   </data>
   <data name="AllowInsecure" xml:space="preserve">
-    <value />
+    <value>允许不安全连接</value>
   </data>
   <data name="Disallow" xml:space="preserve">
-    <value />
+    <value>不允许</value>
   </data>
   <data name="Allow" xml:space="preserve">
-    <value />
+    <value>允许</value>
   </data>
   <data name="ServerName" xml:space="preserve">
-    <value />
+    <value>服务器名称指示</value>
+  </data>
+  <data name="EnabledWithSystemProxy" xml:space="preserve">
+    <value>启用(系统代理)</value>
+  </data>
+  <data name="HttpHeader" xml:space="preserve">
+    <value>HTTP Header</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>禁用</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>退出</value>
   </data>
 </root>

@@ -26,7 +26,7 @@ namespace FluentV2Ray.Interop.Model
         public static Config Default => new()
         {
             Api = ApiObject.Default,
-            Inbounds = new[] { InboundObject.DefaultLocalSocks },
+            Inbounds = new[] { InboundObject.DefaultLocalSocks, InboundObject.DefaultLocalHttp },
             Outbounds = Array.Empty<OutboundObject>(),
             Log = new LogObject() { Loglevel = "info" },
             Routing = RoutingObject.Default

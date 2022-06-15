@@ -18,6 +18,11 @@
                 <MenuFlyout x:Name="menuFlyout" Closed="OnFlyoutClosed">
                     <MenuFlyoutSubItem Text="{ex:Locale Key=RunningMode}">
                         <RadioMenuFlyoutItem
+                            Command="{x:Bind ViewModel.RunningModeSysProxyCommand}"
+                            GroupName="RunningMode"
+                            IsChecked="{x:Bind ViewModel.RunningModeSysProxy}"
+                            Text="{ex:Locale Key=EnabledWithSystemProxy}" />
+                        <RadioMenuFlyoutItem
                             Command="{x:Bind ViewModel.RunningModeEnabledCommand}"
                             GroupName="RunningMode"
                             IsChecked="{x:Bind ViewModel.RunningModeEnabled}"
@@ -27,6 +32,7 @@
                             GroupName="RunningMode"
                             IsChecked="{x:Bind ViewModel.RunningModeDisabled}"
                             Text="{ex:Locale Key=Disabled}" />
+
                     </MenuFlyoutSubItem>
                     <MenuFlyoutItem Command="{x:Bind Path=ViewModel.ConfigureCommand}" Text="{ex:Locale Key=Configure}" />
                     <MenuFlyoutItem Command="{x:Bind Path=ViewModel.ExitCommand}" Text="{ex:Locale Key=Exit}" />

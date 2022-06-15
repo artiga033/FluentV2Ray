@@ -69,8 +69,8 @@ namespace FluentV2Ray.ViewModels
         {
             Outbounds.Add(protocol switch
             {
-                Protocol.Vmess => new OutboundObject() { Tag = "New Vmess Config", Protocol = Protocol.Vmess, Settings = new P.VMess.OutboundConfigurationObject() },
-                Protocol.Shadowsocks => new OutboundObject() { Tag = "New Shadowsocks Config", Protocol = Protocol.Shadowsocks, Settings = new P.Shadowsocks.OutboundConfigurationObject() },
+                Protocol.Vmess => new OutboundObject() { Tag = "New Vmess Config", Protocol = Protocol.Vmess, Settings = new P.VMess.OutboundConfigurationObject(),StreamSettings=StreamSettingsObject.DefaultWsTlsAllInit() },
+                Protocol.Shadowsocks => new OutboundObject() { Tag = "New Shadowsocks Config", Protocol = Protocol.Shadowsocks, Settings = new P.Shadowsocks.OutboundConfigurationObject(),StreamSettings = StreamSettingsObject.DefaultWsTlsAllInit() },
                 //Protocol.Http => new OutboundObject() { Tag = "New Http Config", Protocol = Protocol.Http, Settings = new Protocols.Http.OutboundConfigurationObject() },
                 _ => throw new NotSupportedException()
             });
@@ -84,7 +84,6 @@ namespace FluentV2Ray.ViewModels
         }
         public void Apply()
         {
-          
             _configController.Save();
             _processController.Restart();
         }

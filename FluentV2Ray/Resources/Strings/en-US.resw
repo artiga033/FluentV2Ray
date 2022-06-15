@@ -130,123 +130,129 @@
     <value>Running Mode</value>
   </data>
   <data name="Configure" xml:space="preserve">
-    <value />
+    <value>Configure...</value>
   </data>
   <data name="Add" xml:space="preserve">
-    <value />
+    <value>Add</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value />
+    <value>Delete</value>
   </data>
   <data name="Share" xml:space="preserve">
-    <value />
+    <value>Share</value>
   </data>
   <data name="SaveApply" xml:space="preserve">
-    <value />
+    <value>Save &amp; Apply</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value />
+    <value>Cancel</value>
   </data>
   <data name="Restore" xml:space="preserve">
-    <value />
+    <value>Restore</value>
   </data>
   <data name="Tag" xml:space="preserve">
-    <value />
+    <value>Tag</value>
   </data>
   <data name="ProtocolConfiguration" xml:space="preserve">
-    <value />
+    <value>Protocol Configuration</value>
   </data>
   <data name="Address" xml:space="preserve">
-    <value />
+    <value>Address</value>
   </data>
   <data name="Port" xml:space="preserve">
-    <value />
+    <value>Port</value>
   </data>
   <data name="Id" xml:space="preserve">
-    <value />
+    <value>Id</value>
   </data>
   <data name="AlterId" xml:space="preserve">
-    <value />
+    <value>AlterId</value>
   </data>
   <data name="Security" xml:space="preserve">
-    <value />
+    <value>Security</value>
   </data>
   <data name="Level" xml:space="preserve">
-    <value />
+    <value>Level</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value />
+    <value>Password</value>
   </data>
   <data name="EncryptionMethod" xml:space="preserve">
-    <value />
+    <value>EncryptionMethod</value>
   </data>
   <data name="TransportSettings" xml:space="preserve">
-    <value />
+    <value>Transport Settings</value>
   </data>
   <data name="TransportMethod" xml:space="preserve">
-    <value />
+    <value>Transport Method</value>
   </data>
   <data name="Path" xml:space="preserve">
-    <value />
+    <value>Path</value>
   </data>
   <data name="WsHttpHeader" xml:space="preserve">
-    <value />
+    <value>WebSocket HTTP Header</value>
   </data>
   <data name="Key" xml:space="preserve">
-    <value />
+    <value>Key</value>
   </data>
   <data name="Value" xml:space="preserve">
-    <value />
+    <value>Value</value>
   </data>
   <data name="KcpSeed" xml:space="preserve">
-    <value />
+    <value>KcpSeed</value>
   </data>
   <data name="ReadBufferSize" xml:space="preserve">
-    <value />
+    <value>ReadBufferSize</value>
   </data>
   <data name="WriteBufferSize" xml:space="preserve">
-    <value />
+    <value>WriteBufferSize</value>
   </data>
   <data name="DownlinkCapacity" xml:space="preserve">
-    <value />
+    <value>DownlinkCapacity</value>
   </data>
   <data name="UplinkCapacity" xml:space="preserve">
-    <value />
+    <value>UplinkCapacity</value>
   </data>
   <data name="Congestion" xml:space="preserve">
-    <value />
+    <value>Congestion</value>
   </data>
   <data name="Off" xml:space="preserve">
-    <value />
+    <value>Off</value>
   </data>
   <data name="On" xml:space="preserve">
-    <value />
+    <value>On</value>
   </data>
   <data name="Host" xml:space="preserve">
-    <value />
+    <value>Host</value>
   </data>
   <data name="IsAbstrackDomainSocket" xml:space="preserve">
-    <value />
+    <value>IsAbstractDomainSocket</value>
   </data>
   <data name="UsePadding" xml:space="preserve">
-    <value />
+    <value>UsePadding</value>
   </data>
   <data name="EncryptionKey" xml:space="preserve">
-    <value />
+    <value>EncryptionKey</value>
   </data>
   <data name="EnableTls" xml:space="preserve">
-    <value />
+    <value>Enable TLS</value>
   </data>
   <data name="AllowInsecure" xml:space="preserve">
-    <value />
+    <value>Allow Insecure</value>
   </data>
   <data name="Disallow" xml:space="preserve">
-    <value />
+    <value>Disallow</value>
   </data>
   <data name="Allow" xml:space="preserve">
-    <value />
+    <value>Allow</value>
   </data>
   <data name="ServerName" xml:space="preserve">
-    <value />
+    <value>ServerName</value>
+  </data>
+  <data name="EnabledWithSystemProxy" xml:space="preserve">
+    <value>Enabled(System Proxy)</value>
+  </data>
+  <data name="HttpHeader" xml:space="preserve">
+    <value>HTTP Header</value>
   </data>
 </root>

@@ -1,0 +1,31 @@
+﻿<UserControl
+    x:Class="FluentV2Ray.Controls.DictConfigEditor"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ex="using:FluentV2Ray.Extensions.Markup"
+    xmlns:local="using:FluentV2Ray.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <UserControl.Resources />
+    <ItemsRepeater ItemsSource="{x:Bind Dict}">
+        <ItemsRepeater.ItemTemplate>
+            <DataTemplate>
+                <RelativePanel>
+                    <TextBox
+                        x:Name="headerKeyBox"
+                        IsEnabled="False"
+                        PlaceholderText="{ex:Locale Key=HttpHeader}"
+                        Text="{Binding Key}"
+                        TextChanged="headerKeyBox_TextChanged" />
+                    <TextBox
+                        x:Name="headerValueBox"
+                        PlaceholderText="{Binding Key}"
+                        RelativePanel.RightOf="headerKeyBox"
+                        Text="{Binding Value}"
+                        TextChanged="headerValueBox_TextChanged" />
+                </RelativePanel>
+            </DataTemplate>
+        </ItemsRepeater.ItemTemplate>
+    </ItemsRepeater>
+</UserControl>

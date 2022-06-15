@@ -28,5 +28,17 @@ namespace Shadowsocks.Interop.V2Ray.Transport
             Security = "tls",
             TlsSettings = new(),
         };
+        public static StreamSettingsObject DefaultWsTlsAllInit() => new()
+        {
+            Network = "ws",
+            Security = "tls",
+            TlsSettings = new(),
+            WsSettings = new(),
+            DsSettings = new(),
+            HttpSettings = new(),
+            KcpSettings = new(),
+            QuicSettings = new(),
+            TcpSettings = new(),
+        };
     }
 }

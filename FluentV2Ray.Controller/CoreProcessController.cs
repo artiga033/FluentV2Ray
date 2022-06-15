@@ -41,11 +41,12 @@ namespace FluentV2Ray.Controller
             p.StartInfo.CreateNoWindow = true;
             p.StartInfo.RedirectStandardOutput = true;
             p.StartInfo.RedirectStandardError = true;
+            p.OutputDataReceived += (s, e) => { this.OutputDataReceived?.Invoke(s, e); };
+            p.ErrorDataReceived += (s, e) => { this.ErrorDataReceived?.Invoke(s, e); };
+            p.Exited += this.OnProcessExited;
             p.Start();
             p.BeginOutputReadLine();
             p.BeginErrorReadLine();
-            p.OutputDataReceived += (s, e) => { this.OutputDataReceived?.Invoke(s, e); };
-            p.ErrorDataReceived += (s, e) => { this.ErrorDataReceived?.Invoke(s, e); };
 
             coreProcessJob.AddProcess(p.Handle);
             this.IsRunning = true;
@@ -54,10 +55,10 @@ namespace FluentV2Ray.Controller
         {
             if (IsRunning)
             {
+                this.IsRunning = false;
                 p.Kill();
                 p.Dispose();
                 p = null;
-                this.IsRunning = false;
             }
         }
         public void Restart()
@@ -93,6 +94,15 @@ namespace FluentV2Ray.Controller
             s = p.StandardOutput.ReadLine();
             return s?.Contains("Configuration OK") ?? false;
         }
+        private void OnProcessExited(object? sender, EventArgs e)
+        {
+            if (IsRunning)
+            {
+                this.IsRunning = false;
+                throw new CoreUnexpectedExitedException();
+            }
+        }
+        class CoreUnexpectedExitedException : Exception { }
     }
     public static partial class ControllerDIExtensions
     {
