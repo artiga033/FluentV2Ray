@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -16,9 +17,13 @@ namespace FluentV2Ray.Controller
         public string ConfigPath { get; set; } = "coreConfig.json";
 
         public bool IsRunning = false;
-        public StreamReader? StandardOutput => p?.StandardOutput;
-        public event DataReceivedEventHandler? OutputDataReceived;
-        public event DataReceivedEventHandler? ErrorDataReceived;
+        private StreamReader? StandardOutput => p?.StandardOutput;
+        //public event DataReceivedEventHandler? OutputDataReceived;
+        //public event DataReceivedEventHandler? ErrorDataReceived;
+        public event Action? CoreProcessUnexpectedExited;
+
+        public ObservableCollection<string> Logs { get; set; } = new();
+
         private Process? p = null;
         private Job coreProcessJob = new Job();
         public CoreProcessController(CoreConfigController configCon)
@@ -41,12 +46,12 @@ namespace FluentV2Ray.Controller
             p.StartInfo.CreateNoWindow = true;
             p.StartInfo.RedirectStandardOutput = true;
             p.StartInfo.RedirectStandardError = true;
-            p.OutputDataReceived += (s, e) => { this.OutputDataReceived?.Invoke(s, e); };
-            p.ErrorDataReceived += (s, e) => { this.ErrorDataReceived?.Invoke(s, e); };
+            p.OutputDataReceived += this.OnOutputDataReceived;
+            //p.ErrorDataReceived += (s, e) => { this.ErrorDataReceived?.Invoke(s, e); };
             p.Exited += this.OnProcessExited;
+            p.EnableRaisingEvents = true;
             p.Start();
             p.BeginOutputReadLine();
-            p.BeginErrorReadLine();
 
             coreProcessJob.AddProcess(p.Handle);
             this.IsRunning = true;
@@ -96,13 +101,20 @@ namespace FluentV2Ray.Controller
         }
         private void OnProcessExited(object? sender, EventArgs e)
         {
+
             if (IsRunning)
             {
                 this.IsRunning = false;
-                throw new CoreUnexpectedExitedException();
+                CoreProcessUnexpectedExited?.Invoke();
             }
         }
-        class CoreUnexpectedExitedException : Exception { }
+        private void OnOutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            if (e.Data != null)
+            {
+                Logs.Add(e.Data);
+            }
+        }
     }
     public static partial class ControllerDIExtensions
     {

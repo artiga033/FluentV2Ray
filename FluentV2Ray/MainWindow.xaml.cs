@@ -1,4 +1,5 @@
 ﻿using FluentV2Ray.Utils;
+using FluentV2Ray.Views;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -30,8 +31,15 @@ namespace FluentV2Ray
             this.InitializeComponent();
             this.Closed += (_, _) => Instance = null;
         }
-        
+        private readonly IList<(string Tag, Type Page)> _pages = new[]
+        {
+            ("config",typeof(ConfigPage)),
+            ("log",typeof(LogPage))
+        };
         private static MainWindow? Instance;
+        /// <summary>
+        /// Navigate to the page and show up as foreground window
+        /// </summary>
         public static void Page(Type type)
         {
             if (Instance == null)
@@ -43,6 +51,13 @@ namespace FluentV2Ray
         public static void Page<T>() where T : Page
         {
             Page(typeof(T));
+        }
+        private void OnSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        {
+            if (args.SelectedItemContainer != null)
+            {
+                this.rootFrame.Navigate(_pages.First(x => x.Tag == (string)args.SelectedItemContainer.Tag).Page);
+            }
         }
     }
 }

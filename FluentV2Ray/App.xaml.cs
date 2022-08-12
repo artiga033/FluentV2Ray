@@ -7,6 +7,10 @@ using FluentV2Ray.Controller;
 using System.Diagnostics.CodeAnalysis;
 using FluentV2Ray.ViewModels;
 using System.Diagnostics;
+using Microsoft.Toolkit.Uwp.Notifications;
+using System.Linq;
+using Windows.Foundation.Collections;
+using FluentV2Ray.Views;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -39,6 +43,25 @@ namespace FluentV2Ray
             var setting = Services.GetRequiredService<IAppSettingService>().AppSetting;
             var processCon = Services.GetRequiredService<CoreProcessController>();
             var sysproxyCon = Services.GetRequiredService<SystemProxyController>();
+            var i18N = Services.GetRequiredService<II18NService>();
+
+            processCon.CoreProcessUnexpectedExited += () =>
+            {
+                var output = processCon.Logs.Last();
+                new ToastContentBuilder()
+                .AddText("❌" + i18N.GetLocale("CoreExited"))
+                .AddText(output)
+                .AddArgument("CoreExited")
+                .Show();
+            };
+            ToastNotificationManagerCompat.OnActivated += toastArgs =>
+            {
+                switch (toastArgs.Argument)
+                {
+                    case "CoreExited": m_window.DispatcherQueue.TryEnqueue(()=> MainWindow.Page<LogPage>()); break;
+                    default: break;
+                }
+            };
 
             switch (setting.RunningMode)
             {
@@ -81,7 +104,7 @@ namespace FluentV2Ray
                 .AddCoreProcessController()
                 .AddSingleton<SystemProxyController>();
             // viewmodels
-            services.AddTransient<ConfigViewModel>();
+            services.AddTransient<ConfigViewModel>().AddTransient<LogPageViewModel>();
             return services.BuildServiceProvider();
         }
     }

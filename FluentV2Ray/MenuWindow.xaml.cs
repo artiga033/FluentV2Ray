@@ -24,6 +24,7 @@ using Microsoft.Extensions.DependencyInjection;
 using FluentV2Ray.Services.Interfaces;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using FluentV2Ray.Views;
 
 
 // To learn more about WinUI, the WinUI project structure,
@@ -76,7 +77,11 @@ namespace FluentV2Ray
                 Win32Api.SetWindowLong(hWnd, GWL_EXSTYLE, extendedStyle & ~WS_EX_TRANSPARENT);// unset transparent 
                 menuFlyout.ShowAt(menuPage, new Point(ViewModel.HiddenWidth / 2 - 65, ViewModel.HiddenHeight)); // dont ask why the width needs to minus 65px.From test.
                 Win32Api.SetForegroundWindow(hWnd);
+            }
 
+            if (e.Button == MouseButtons.Left )
+            {
+                MainWindow.Page<LogPage>();
             }
         }
 

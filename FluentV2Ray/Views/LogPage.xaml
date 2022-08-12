@@ -1,0 +1,21 @@
+﻿<Page
+    x:Class="FluentV2Ray.Views.LogPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ex="using:FluentV2Ray.Extensions.Markup"
+    xmlns:local="using:FluentV2Ray.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="using:FluentV2Ray.Controls"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <Grid>
+        <Pivot>
+
+            <PivotItem Header="{ex:Locale Key=CoreLog}">
+                <uc:LogViewer LogSource="{x:Bind ViewModel.CoreLogSource, Mode=OneWay}" />
+            </PivotItem>
+        </Pivot>
+    </Grid>
+</Page>
