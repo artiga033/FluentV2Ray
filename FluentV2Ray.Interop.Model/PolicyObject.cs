@@ -1,20 +1,13 @@
-using Shadowsocks.Interop.V2Ray.Policy;
-using System.Collections.Generic;
+using FluentV2Ray.Interop.Model.Policy;
 
-namespace Shadowsocks.Interop.V2Ray
+namespace FluentV2Ray.Interop.Model
 {
-    public class PolicyObject
+    public class PolicyObject : IV2RayConfig
     {
+        /// <summary>
+        /// Gets or sets the polict for each user level. The keys are numbers in string form, representing user level.
+        /// </summary>
         public Dictionary<string, LevelPolicyObject>? Levels { get; set; }
         public SystemPolicyObject? System { get; set; }
-
-        /// <summary>
-        /// Gets the default policy object.
-        /// </summary>
-        public static PolicyObject Default => new()
-        {
-            Levels = new(),
-            System = SystemPolicyObject.Default,
-        };
     }
 }

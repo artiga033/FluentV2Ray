@@ -1,24 +1,22 @@
-namespace Shadowsocks.Interop.V2Ray.Policy
-{
-    public class LevelPolicyObject
-    {
-        public int? Handshake { get; set; }
-        public int? ConnIdle { get; set; }
-        public int? UplinkOnly { get; set; }
-        public int? DownlinkOnly { get; set; }
-        public bool? StatsUserUplink { get; set; }
-        public bool? StatsUserDownlink { get; set; }
-        public int? BufferSize { get; set; }
+using System.ComponentModel;
 
-        public static LevelPolicyObject Default => new()
-        {
-            Handshake = 4,
-            ConnIdle = 300,
-            UplinkOnly = 2,
-            DownlinkOnly = 5,
-            StatsUserUplink = false,
-            StatsUserDownlink = false,
-            BufferSize = 512,
-        };
+namespace FluentV2Ray.Interop.Model.Policy
+{
+    public class LevelPolicyObject : IV2RayConfig
+    {
+        [DefaultValue(4)]
+        public int? Handshake { get; set; } = 4;
+        [DefaultValue(300)]
+        public int? ConnIdle { get; set; } = 300;
+        [DefaultValue(2)]
+        public int? UplinkOnly { get; set; } = 2;
+        [DefaultValue(5)]
+        public int? DownlinkOnly { get; set; } = 5;
+        [DefaultValue(false)]
+        public bool? StatsUserUplink { get; set; } = false;
+        [DefaultValue(false)]
+        public bool? StatsUserDownlink { get; set; } = false;
+        [DefaultValue(512)]
+        public int? BufferSize { get; set; } = 512;
     }
 }

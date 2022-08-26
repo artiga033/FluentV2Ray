@@ -1,6 +1,6 @@
-using Shadowsocks.Interop.V2Ray.Transport.Header.Http;
+using FluentV2Ray.Interop.Model.Transport.Header.Http;
 
-namespace Shadowsocks.Interop.V2Ray.Transport.Header
+namespace FluentV2Ray.Interop.Model.Transport.Header
 {
     public class HttpHeaderObject : HeaderObject
     {

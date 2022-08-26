@@ -1,52 +1,31 @@
-using Shadowsocks.Interop.V2Ray.Routing;
-using System.Collections.Generic;
+using FluentV2Ray.Interop.Model.Routing;
+using System.ComponentModel;
 
-namespace Shadowsocks.Interop.V2Ray
+namespace FluentV2Ray.Interop.Model;
+
+public class RoutingObject : IV2RayConfig
 {
-    public class RoutingObject
-    {
-        /// <summary>
-        /// Gets or sets the domain strategy used for routing.
-        /// Default value: AsIs.
-        /// Available values: "AsIs" | "IPIfNonMatch" | "IPOnDemand"
-        /// </summary>
-        public string DomainStrategy { get; set; }
+    /// <summary>
+    /// Gets or sets the domain strategy used for routing.
+    /// Available values: "AsIs" | "IPIfNonMatch" | "IPOnDemand"
+    /// </summary>
+    [DefaultValue("AsIs")]
+    public string DomainStrategy { get; set; } = "AsIs";
 
-        /// <summary>
-        /// Gets or sets the domain matcher used for routing.
-        /// Default value: "linear".
-        /// Available values: "linear" | "mph"
-        /// </summary>
-        public string DomainMatcher { get; set; }
+    /// <summary>
+    /// Gets or sets the domain matcher used for routing.
+    /// Available values: "linear" | "mph"
+    /// </summary>
+    [DefaultValue("linear")]
+    public string DomainMatcher { get; set; } = "linear";
 
-        /// <summary>
-        /// Gets or sets the list of routing rules.
-        /// </summary>
-        public List<RuleObject> Rules { get; set; }
+    /// <summary>
+    /// Gets or sets the list of routing rules.
+    /// </summary>
+    public IList<RuleObject>? Rules { get; set; }
 
-        /// <summary>
-        /// Gets or sets the list of load balancers.
-        /// </summary>
-        public List<BalancerObject>? Balancers { get; set; }
-
-        public RoutingObject()
-        {
-            DomainStrategy = "AsIs";
-            DomainMatcher = "linear";
-            Rules = new();
-        }
-
-        public static RoutingObject Default => new()
-        {
-            DomainStrategy = "IPOnDemand",
-            DomainMatcher = "mph",
-        };
-
-        public static RoutingObject DefaultBalancers => new()
-        {
-            DomainStrategy = "IPOnDemand",
-            DomainMatcher = "mph",
-            Balancers = new(),
-        };
-    }
+    /// <summary>
+    /// Gets or sets the list of load balancers.
+    /// </summary>
+    public IList<BalancerObject>? Balancers { get; set; }
 }

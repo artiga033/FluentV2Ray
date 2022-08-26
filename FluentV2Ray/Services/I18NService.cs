@@ -1,11 +1,6 @@
-﻿using FluentV2Ray.Services.Interfaces;
+﻿using FluentV2Ray.Extensions.Markup;
+using FluentV2Ray.Services.Interfaces;
 using Microsoft.Windows.ApplicationModel.Resources;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FluentV2Ray.Services
 {
@@ -43,6 +38,11 @@ namespace FluentV2Ray.Services
                 catch { }
             }
             return locale;
+        }
+
+        public string GetLocale(LocaleKey key)
+        {
+            return GetLocale(key.ToString());
         }
     }
 }

@@ -1,19 +1,12 @@
-namespace Shadowsocks.Interop.V2Ray.Protocols.Trojan
+namespace FluentV2Ray.Interop.Model.Protocols.Trojan
 {
-    public class ServerObject
+    public class ServerObject : IV2RayConfig
     {
         public string Address { get; set; }
         public int Port { get; set; }
         public string Password { get; set; }
         public string? Email { get; set; }
-        public int? Level { get; set; }
-
-        public ServerObject()
-        {
-            Address = "";
-            Port = 0;
-            Password = "";
-        }
+        public int Level { get; set; }
 
         public ServerObject(string address, int port, string password)
         {

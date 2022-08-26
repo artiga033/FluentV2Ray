@@ -1,19 +1,17 @@
-using System.Collections.Generic;
-
-namespace Shadowsocks.Interop.V2Ray.Inbound
+namespace FluentV2Ray.Interop.Model.Inbound
 {
-    public class SniffingObject
+    public class SniffingObject : IV2RayConfig
     {
         /// <summary>
         /// Gets or sets whether to enable sniffing.
         /// Defaults to true (enabled).
         /// </summary>
-        public bool Enabled { get; set; }
+        public bool Enabled { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the list of protocols that destination override is enabled.
         /// </summary>
-        public List<string> DestOverride { get; set; }
+        public IList<string> DestOverride { get; set; } = new List<string>() { "http", "tls" };
 
         /// <summary>
         /// Gets or sets whether the target address is sniffed
@@ -22,37 +20,5 @@ namespace Shadowsocks.Interop.V2Ray.Inbound
         /// Change to true to use FakeDNS.
         /// </summary>
         public bool MetadataOnly { get; set; }
-
-        public SniffingObject()
-        {
-            Enabled = true;
-            DestOverride = new()
-            {
-                "http",
-                "tls",
-            };
-        }
-
-        public static SniffingObject Default => new()
-        {
-            Enabled = false,
-            DestOverride = new()
-            {
-                "http",
-                "tls",
-            },
-        };
-
-        public static SniffingObject DefaultFakeDns => new()
-        {
-            Enabled = true,
-            DestOverride = new()
-            {
-                "http",
-                "tls",
-                "fakedns",
-            },
-            MetadataOnly = true,
-        };
     }
 }

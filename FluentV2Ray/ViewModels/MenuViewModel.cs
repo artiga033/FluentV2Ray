@@ -2,18 +2,11 @@
 using CommunityToolkit.Mvvm.Input;
 using FluentV2Ray.Controller;
 using FluentV2Ray.Models;
-using FluentV2Ray.Services;
 using FluentV2Ray.Services.Interfaces;
 using FluentV2Ray.Views;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Input;
 namespace FluentV2Ray.ViewModels
 {
     public partial class MenuViewModel : ObservableObject

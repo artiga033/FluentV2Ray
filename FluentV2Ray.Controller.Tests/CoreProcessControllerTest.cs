@@ -1,7 +1,6 @@
-using Xunit;
-using FluentV2Ray.Controller;
-using Xunit.Abstractions;
 using Microsoft.Extensions.Logging.Abstractions;
+using Xunit;
+using Xunit.Abstractions;
 
 namespace FluentV2Ray.Controller.Tests
 {
@@ -27,20 +26,19 @@ namespace FluentV2Ray.Controller.Tests
             con.ConfigPath = "Assets/plainConfig.json";
             con.Start();
             Assert.True(con.IsRunning);
-            Assert.NotNull(con.StandardOutput);
-            string stdout = con.StandardOutput?.ReadToEnd()??"";
+            Assert.NotEmpty(con.Logs);
+            string stdout = string.Join('\n', con.Logs);
             output.WriteLine(stdout);
             Assert.Contains("Assets/plainConfig.json", stdout);
 
             con.Stop();
             Assert.False(con.IsRunning);
-            Assert.Null(con.StandardOutput);
         }
         [Theory]
         [InlineData("Assets/plainConfig.json", true)]
         [InlineData("Assets/invalidConfig.json", false)]
         [InlineData("Assets/errorConfig.json", false)]
-        public void CheckConfig_Correct(string filepath,bool expected)
+        public void CheckConfig_Correct(string filepath, bool expected)
         {
             CoreProcessController con = new CoreProcessController(new CoreConfigController(NullLogger<CoreConfigController>.Instance));
             con.ConfigPath = filepath;

@@ -1,23 +1,12 @@
-using System.Collections.Generic;
-using System.Net;
-
-namespace Shadowsocks.Interop.V2Ray.Protocols.Socks
+namespace FluentV2Ray.Interop.Model.Protocols.Socks
 {
-    public class OutboundConfigurationObject
+    public class OutboundConfigurationObject : OutboundConfigurationObjectBase
     {
-        public List<ServerObject> Servers { get; set; }
-
-        public OutboundConfigurationObject()
+        public IList<ServerObject> Servers { get; set; } = new List<ServerObject>();
+        public OutboundConfigurationObject() { }
+        public OutboundConfigurationObject(string address, int port)
         {
-            Servers = new();
-        }
-
-        public OutboundConfigurationObject(DnsEndPoint socksEndPoint, string username = "", string password = "")
-        {
-            Servers = new()
-            {
-                new(socksEndPoint, username, password),
-            };
+            Servers = new List<ServerObject>() { new ServerObject(address, port) };
         }
     }
 }

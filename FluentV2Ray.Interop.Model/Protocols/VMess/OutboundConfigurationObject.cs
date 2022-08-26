@@ -1,22 +1,12 @@
-using System.Collections.Generic;
-
-namespace Shadowsocks.Interop.V2Ray.Protocols.VMess
+namespace FluentV2Ray.Interop.Model.Protocols.VMess
 {
-    public class OutboundConfigurationObject
+    public class OutboundConfigurationObject : OutboundConfigurationObjectBase
     {
-        public List<ServerObject> Vnext { get; set; } 
-
-        public OutboundConfigurationObject()
-        {
-            Vnext = new() { new() };
-        }
-
+        public IList<ServerObject> Vnext { get; set; } = new List<ServerObject>();
+        public OutboundConfigurationObject() { Vnext.Add(new ServerObject() { Users = {new("")}}); }
         public OutboundConfigurationObject(string address, int port, string id)
         {
-            Vnext = new()
-            {
-                new(address, port, id),
-            };
+            this.Vnext = new List<ServerObject>() { new(address, port, id) };
         }
     }
 }

@@ -1,6 +1,6 @@
-using Shadowsocks.Interop.V2Ray.Transport.Header;
+using FluentV2Ray.Interop.Model.Transport.Header;
 
-namespace Shadowsocks.Interop.V2Ray.Transport
+namespace FluentV2Ray.Interop.Model.Transport
 {
     public class QuicObject
     {

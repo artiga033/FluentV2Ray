@@ -1,12 +1,15 @@
-namespace Shadowsocks.Interop.V2Ray.Outbound
+using System.ComponentModel;
+
+namespace FluentV2Ray.Interop.Model.Outbound
 {
-    public class MuxObject
+    public class MuxObject : IV2RayConfig
     {
         /// <summary>
         /// Gets or sets whether to enable mux.
         /// Defaults to false (disabled).
         /// </summary>
-        public bool Enabled { get; set; }
+        [DefaultValue(false)]
+        public bool Enabled { get; set; } = false;
 
         /// <summary>
         /// Gets or sets the concurrency for a single TCP connection when using mux.
@@ -14,12 +17,7 @@ namespace Shadowsocks.Interop.V2Ray.Outbound
         /// Range: [1, 1024].
         /// Set to -1 to disable the mux module.
         /// </summary>
-        public int Concurrency { get; set; }
-
-        public MuxObject()
-        {
-            Enabled = false;
-            Concurrency = 8;
-        }
+        [DefaultValue(8)]
+        public int Concurrency { get; set; } = 8;
     }
 }

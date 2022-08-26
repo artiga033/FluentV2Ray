@@ -1,22 +1,14 @@
-namespace Shadowsocks.Interop.V2Ray.Protocols.Trojan
+using System.ComponentModel;
+
+namespace FluentV2Ray.Interop.Model.Protocols.Trojan
 {
-    public class FallbackObject
+    public class FallbackObject : IV2RayConfig
     {
         public string? Alpn { get; set; }
         public string? Path { get; set; }
-        public object Dest { get; set; }
-        public int? Xver { get; set; }
-
-        public FallbackObject()
-        {
-            Dest = 0;
-        }
-
-        public static FallbackObject Default => new()
-        {
-            Alpn = "",
-            Path = "",
-            Xver = 0,
-        };
+        [DefaultValue(80)]
+        public int Dest { get; set; } = 80;
+        [DefaultValue(0)]
+        public int Xver { get; set; }
     }
 }

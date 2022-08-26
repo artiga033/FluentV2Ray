@@ -2,11 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Markup;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace FluentV2Ray.Extensions.Markup
 {
@@ -22,13 +19,20 @@ namespace FluentV2Ray.Extensions.Markup
         /// Key for the localed text
         /// </summary>
         [Required]
-        public string Key { get; set; }
-        public string After { get; set; } = "";
-        public string Before { get; set; } = "";
+        public LocaleKey Key { get; set; } = LocaleKey.Undefined;
+        public LocaleKey? After { get; set; } = null;
+        public LocaleKey? Before { get; set; } = null;
+        public string Seprator { get; set; } = "";
 
         protected override object ProvideValue()
         {
-            return Before + _i18N.GetLocale(Key) + After;
+            StringBuilder builder = new();
+            if (Before.HasValue)
+                builder.Append(_i18N.GetLocale(Before.Value)).Append(Seprator);
+            builder.Append(_i18N.GetLocale(Key));
+            if (After.HasValue)
+                builder.Append(Seprator).Append(_i18N.GetLocale(After.Value));
+            return builder.ToString();
         }
     }
 }

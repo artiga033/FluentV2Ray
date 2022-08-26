@@ -1,19 +1,18 @@
-using System.Collections.Generic;
+using System.ComponentModel;
 
-namespace Shadowsocks.Interop.V2Ray.Protocols.Socks
+namespace FluentV2Ray.Interop.Model.Protocols.Socks
 {
-    public class InboundConfigurationObject
+    public class InboundConfigurationObject : InboundConfigurationObjectBase
     {
-        public string? Auth { get; set; }
+        /// <summary>
+        /// Available values: "noauth" | "password"
+        /// </summary>
+        [DefaultValue("noauth")]
+        public string? Auth { get; set; } = "noauth";
         public List<AccountObject>? Accounts { get; set; }
         public bool? Udp { get; set; }
-        public string? Ip { get; set; }
+        public string Ip { get; set; } = "";
         public int? UserLevel { get; set; }
-
-        public static InboundConfigurationObject Default => new()
-        {
-            Udp = true,
-            Ip = "127.0.0.1",
-        };
+        public InboundConfigurationObject() { }
     }
 }

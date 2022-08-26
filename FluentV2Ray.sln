@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentV2Ray.Interop.Model",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentV2Ray.NotifyIcon", "FluentV2Ray.NotifyIcon\FluentV2Ray.NotifyIcon.csproj", "{F893C9AB-1E80-4C63-ADF9-C0BF9B9D5708}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentV2Ray.Interop.Model.V5", "FluentV2Ray.Interop.Model.V5\FluentV2Ray.Interop.Model.V5.csproj", "{3D8C1EF6-C174-44DC-8D48-C60E87F10D1E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,22 @@ Global
 		{F893C9AB-1E80-4C63-ADF9-C0BF9B9D5708}.Release|x64.Build.0 = Release|Any CPU
 		{F893C9AB-1E80-4C63-ADF9-C0BF9B9D5708}.Release|x86.ActiveCfg = Release|Any CPU
 		{F893C9AB-1E80-4C63-ADF9-C0BF9B9D5708}.Release|x86.Build.0 = Release|Any CPU
+		{3D8C1EF6-C174-44DC-8D48-C60E87F10D1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D8C1EF6-C174-44DC-8D48-C60E87F10D1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D8C1EF6-C174-44DC-8D48-C60E87F10D1E}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{3D8C1EF6-C174-44DC-8D48-C60E87F10D1E}.Debug|arm64.Build.0 = Debug|Any CPU
+		{3D8C1EF6-C174-44DC-8D48-C60E87F10D1E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3D8C1EF6-C174-44DC-8D48-C60E87F10D1E}.Debug|x64.Build.0 = Debug|Any CPU
+		{3D8C1EF6-C174-44DC-8D48-C60E87F10D1E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3D8C1EF6-C174-44DC-8D48-C60E87F10D1E}.Debug|x86.Build.0 = Debug|Any CPU
+		{3D8C1EF6-C174-44DC-8D48-C60E87F10D1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D8C1EF6-C174-44DC-8D48-C60E87F10D1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D8C1EF6-C174-44DC-8D48-C60E87F10D1E}.Release|arm64.ActiveCfg = Release|Any CPU
+		{3D8C1EF6-C174-44DC-8D48-C60E87F10D1E}.Release|arm64.Build.0 = Release|Any CPU
+		{3D8C1EF6-C174-44DC-8D48-C60E87F10D1E}.Release|x64.ActiveCfg = Release|Any CPU
+		{3D8C1EF6-C174-44DC-8D48-C60E87F10D1E}.Release|x64.Build.0 = Release|Any CPU
+		{3D8C1EF6-C174-44DC-8D48-C60E87F10D1E}.Release|x86.ActiveCfg = Release|Any CPU
+		{3D8C1EF6-C174-44DC-8D48-C60E87F10D1E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

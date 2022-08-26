@@ -1,16 +1,13 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentV2Ray.Controller;
+using FluentV2Ray.Services;
+using FluentV2Ray.Services.Interfaces;
+using FluentV2Ray.ViewModels;
+using FluentV2Ray.Views;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Toolkit.Uwp.Notifications;
 using Microsoft.UI.Xaml;
 using System;
-using FluentV2Ray.Services.Interfaces;
-using FluentV2Ray.Services;
-using FluentV2Ray.Controller;
-using System.Diagnostics.CodeAnalysis;
-using FluentV2Ray.ViewModels;
-using System.Diagnostics;
-using Microsoft.Toolkit.Uwp.Notifications;
 using System.Linq;
-using Windows.Foundation.Collections;
-using FluentV2Ray.Views;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -58,7 +55,7 @@ namespace FluentV2Ray
             {
                 switch (toastArgs.Argument)
                 {
-                    case "CoreExited": m_window.DispatcherQueue.TryEnqueue(()=> MainWindow.Page<LogPage>()); break;
+                    case "CoreExited": m_window.DispatcherQueue.TryEnqueue(() => MainWindow.Page<LogPage>()); break;
                     default: break;
                 }
             };
@@ -104,7 +101,9 @@ namespace FluentV2Ray
                 .AddCoreProcessController()
                 .AddSingleton<SystemProxyController>();
             // viewmodels
-            services.AddTransient<ConfigViewModel>().AddTransient<LogPageViewModel>();
+            services.AddTransient<ConfigViewModel>()
+                .AddTransient<LogPageViewModel>()
+                .AddTransient<SettingsPageViewModel>();
             return services.BuildServiceProvider();
         }
     }

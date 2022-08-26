@@ -1,25 +1,18 @@
-using System;
+using System.ComponentModel;
 
-namespace Shadowsocks.Interop.V2Ray.Protocols.VMess
+namespace FluentV2Ray.Interop.Model.Protocols.VMess
 {
-    /// <summary>
-    /// The user object for VMess AEAD.
-    /// </summary>
     public class UserObject
     {
         public string Id { get; set; }
+        [DefaultValue(0)]
         public int AlterId { get; set; }
+        [DefaultValue("auto")]
         public string Security { get; set; } = "auto";
         public int Level { get; set; }
-
-        public UserObject(string id = "")
+        public UserObject(string id)
         {
             Id = id;
         }
-
-        public static UserObject Default => new()
-        {
-            Id = Guid.NewGuid().ToString(),
-        };
     }
 }

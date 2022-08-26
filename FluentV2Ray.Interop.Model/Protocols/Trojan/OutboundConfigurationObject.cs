@@ -1,19 +1,12 @@
-using System.Collections.Generic;
-
-namespace Shadowsocks.Interop.V2Ray.Protocols.Trojan
+namespace FluentV2Ray.Interop.Model.Protocols.Trojan
 {
-    public class OutboundConfigurationObject
+    public class OutboundConfigurationObject : OutboundConfigurationObjectBase
     {
-        public List<ServerObject> Servers { get; set; }
-
-        public OutboundConfigurationObject()
-        {
-            Servers = new();
-        }
-
+        public IList<ServerObject> Servers { get; set; } = new List<ServerObject>();
+        public OutboundConfigurationObject() { }
         public OutboundConfigurationObject(string address, int port, string password)
         {
-            Servers = new()
+            Servers = new List<ServerObject>()
             {
                 new(address, port, password),
             };

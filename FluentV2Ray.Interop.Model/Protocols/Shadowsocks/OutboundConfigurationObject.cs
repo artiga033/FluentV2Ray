@@ -1,21 +1,16 @@
-using System.Collections.Generic;
-
-namespace Shadowsocks.Interop.V2Ray.Protocols.Shadowsocks
+namespace FluentV2Ray.Interop.Model.Protocols.Shadowsocks
 {
-    public class OutboundConfigurationObject
+    public class OutboundConfigurationObject : OutboundConfigurationObjectBase
     {
-        public List<ServerObject> Servers { get; set; }
+        public IList<ServerObject> Servers { get; set; } = new List<ServerObject>();
 
         public OutboundConfigurationObject()
-        {
-            Servers = new() { new() };
-        }
-
+        { }
         public OutboundConfigurationObject(string address, int port, string method, string password)
         {
-            Servers = new()
+            Servers = new List<ServerObject>()
             {
-                new(address, port, method, password),
+                new ServerObject(address, port, method, password),
             };
         }
     }

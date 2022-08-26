@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FluentV2Ray.Interop.Model
+﻿namespace FluentV2Ray.Interop.Model
 {
     /// <summary>
     /// Connection Observatory confirms the outbounds' status through periodic connection.
     /// </summary>
-    public class ObservatoryObject
+    public class ObservatoryObject : IV2RayConfig
     {
         public ICollection<string>? SubjectSelector { get; set; }
         public string? ProbeURL;

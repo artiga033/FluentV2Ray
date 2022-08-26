@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Text.Json;
-using p = Shadowsocks.Interop.V2Ray.Protocols;
+using p = FluentV2Ray.Interop.Model.Protocols;
 
 namespace FluentV2Ray.Interop.Model.Protocols
 {
@@ -37,7 +32,7 @@ namespace FluentV2Ray.Interop.Model.Protocols
         private const string dokodemoDoor = "dokodemo-door";
         public override Protocol Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            var s = reader.GetString();
+            var s = reader.GetString()!;
             if (s == dokodemoDoor)
                 return Protocol.DokodemoDoor;
             return (Protocol)Enum.Parse(typeToConvert, s, ignoreCase: true);
@@ -64,9 +59,30 @@ namespace FluentV2Ray.Interop.Model.Protocols
         {
             return p switch
             {
-                Protocol.Vmess=> typeof(p.VMess.OutboundConfigurationObject),
+                Protocol.Blackhole => typeof(p.Blackhole.OutboundConfigurationObject),
+                Protocol.Dns => typeof(p.Dns.OutboundConfigurationObject),
+                Protocol.Freedom => typeof(p.Freedom.OutboundConfigurationObject),
+                Protocol.Http => typeof(p.Http.OutboundConfigurationObject),
                 Protocol.Shadowsocks => typeof(p.Shadowsocks.OutboundConfigurationObject),
-                _=>throw new NotImplementedException()
+                Protocol.Socks => typeof(p.Socks.OutboundConfigurationObject),
+                Protocol.Trojan => typeof(p.Trojan.OutboundConfigurationObject),
+                Protocol.Vless => typeof(p.Vless.OutboundConfigurationObject),
+                Protocol.Vmess => typeof(p.VMess.OutboundConfigurationObject),
+                _ => throw new NotSupportedException()
+            };
+        }
+        public static Type GetInboundConfigType(this Protocol p)
+        {
+            return p switch
+            {
+                Protocol.DokodemoDoor => typeof(p.Dokodemo_door.InboundConfigurationObject),
+                Protocol.Http => typeof(p.Http.InboundConfigurationObject),
+                Protocol.Shadowsocks => typeof(p.Shadowsocks.InboundConfigurationObject),
+                Protocol.Socks => typeof(p.Socks.InboundConfigurationObject),
+                Protocol.Trojan => typeof(p.Trojan.InboundConfigurationObject),
+                Protocol.Vless => typeof(p.Vless.InboundConfigurationObject),
+                Protocol.Vmess => typeof(p.VMess.InboundConfigurationObject),
+                _ => throw new NotSupportedException()
             };
         }
     }

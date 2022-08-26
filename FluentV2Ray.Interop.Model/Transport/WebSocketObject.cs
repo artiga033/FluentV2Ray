@@ -1,6 +1,4 @@
-using System.Collections.Generic;
-
-namespace Shadowsocks.Interop.V2Ray.Transport
+namespace FluentV2Ray.Interop.Model.Transport
 {
     public class WebSocketObject
     {
@@ -26,7 +24,7 @@ namespace Shadowsocks.Interop.V2Ray.Transport
             AcceptProxyProtocol = false;
             Path = "/";
             Headers = new();
-            Headers.Add("Host",null);
+            Headers.Add("Host", null);
         }
     }
 }

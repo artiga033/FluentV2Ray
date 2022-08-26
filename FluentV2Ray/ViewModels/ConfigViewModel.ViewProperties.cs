@@ -1,11 +1,6 @@
 ﻿using FluentV2Ray.Interop.Model.Protocols;
-using Shadowsocks.Interop.V2Ray.Transport;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using P = Shadowsocks.Interop.V2Ray.Protocols;
+using FluentV2Ray.Interop.Model.Transport;
+using P = FluentV2Ray.Interop.Model.Protocols;
 
 namespace FluentV2Ray.ViewModels
 {

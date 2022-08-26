@@ -6,6 +6,6 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
  <ItemGroup>
-	 <Using Static="true" Include="FluentV2Ray.Interop.Model.Helper"/>
+	 <Using Static="true" Include="FluentV2Ray.Interop.Model.Helper" />
  </ItemGroup>
 </Project>

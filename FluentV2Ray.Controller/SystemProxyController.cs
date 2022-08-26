@@ -1,13 +1,10 @@
 ﻿// ref:  Shadowsocks.Util.SystemProxy
-using System;
-using System.Collections.Generic;
+using FluentV2Ray.Interop.Model.Protocols;
 using System.Diagnostics;
 using System.IO.Compression;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace FluentV2Ray.Controller
 {
@@ -99,7 +96,7 @@ namespace FluentV2Ray.Controller
         /// </summary>
         public void SetIEProxy()
         {
-            var httpIn = _coreConfigController.Config.Inbounds.FirstOrDefault(x => x.Protocol == "http");
+            var httpIn = _coreConfigController.Config.Inbounds.FirstOrDefault(x => x.Protocol == Protocol.Http);
             string addr = "127.0.0.1:" + httpIn?.Port ?? throw new ArgumentException("http inbound port not set");
             this.SetIEProxy(true, true, addr, "");
         }

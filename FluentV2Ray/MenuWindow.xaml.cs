@@ -1,30 +1,17 @@
-﻿using FluentV2Ray.Utils;
+﻿using FluentV2Ray.Services.Interfaces;
+using FluentV2Ray.Utils;
 using FluentV2Ray.ViewModels;
+using FluentV2Ray.Views;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using System.Windows.Forms;
+using Windows.Foundation;
 using WinRT.Interop;
-using Windows.Graphics;
 using static FluentV2Ray.Utils.Win32Api;
-using FluentV2Ray.Controller;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.DependencyInjection;
-using FluentV2Ray.Services.Interfaces;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using FluentV2Ray.Views;
 
 
 // To learn more about WinUI, the WinUI project structure,
@@ -79,7 +66,7 @@ namespace FluentV2Ray
                 Win32Api.SetForegroundWindow(hWnd);
             }
 
-            if (e.Button == MouseButtons.Left )
+            if (e.Button == MouseButtons.Left)
             {
                 MainWindow.Page<LogPage>();
             }

@@ -1,12 +1,14 @@
-namespace Shadowsocks.Interop.V2Ray.Outbound
+using System.ComponentModel;
+
+namespace FluentV2Ray.Interop.Model.Outbound
 {
-    public class ProxySettingsObject
+    public class ProxySettingsObject : IV2RayConfig
     {
         /// <summary>
         /// Gets or sets the tag of the outbound
         /// used as the proxy.
         /// </summary>
-        public string Tag { get; set; }
+        public string? Tag { get; set; }
 
         /// <summary>
         /// Gets or sets whether to keep the protocol
@@ -15,16 +17,7 @@ namespace Shadowsocks.Interop.V2Ray.Outbound
         /// Set to true to proxy the protocol.
         /// The tag will act as a forward proxy.
         /// </summary>
+        [DefaultValue(false)]
         public bool TransportLayer { get; set; }
-
-        public ProxySettingsObject()
-        {
-            Tag = "";
-        }
-
-        public static ProxySettingsObject Default => new()
-        {
-            TransportLayer = true,
-        };
     }
 }

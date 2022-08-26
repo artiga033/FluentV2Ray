@@ -1,30 +1,26 @@
-using System.Collections.Generic;
+using System.ComponentModel;
 
-namespace Shadowsocks.Interop.V2Ray.Transport
+namespace FluentV2Ray.Interop.Model.Transport
 {
     public class CertificateObject
     {
-        public string Usage { get; set; }
+        [DefaultValue("encipherment")]
+        public string Usage { get; set; } = "encipherment";
         public string? CertificateFile { get; set; }
         public string? KeyFile { get; set; }
-        public List<string>? Certificate { get; set; }
-        public List<string>? Key { get; set; }
+        public IEnumerable<string>? Certificate { get; set; }
+        public IEnumerable<string>? Key { get; set; }
 
-        public CertificateObject()
+        public CertificateObject() { }
+        public CertificateObject(IEnumerable<string> certificate, IEnumerable<string> key)
         {
-            Usage = "encipherment";
+            this.Certificate = certificate;
+            this.Key = key;
         }
-
         public static CertificateObject DefaultFromFile => new()
         {
             CertificateFile = "",
             KeyFile = "",
-        };
-
-        public static CertificateObject DefaultEmbedded => new()
-        {
-            Certificate = new(),
-            Key = new(),
         };
     }
 }

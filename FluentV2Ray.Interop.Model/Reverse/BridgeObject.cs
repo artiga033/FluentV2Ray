@@ -1,11 +1,11 @@
-namespace Shadowsocks.Interop.V2Ray.Reverse
+namespace FluentV2Ray.Interop.Model.Reverse
 {
-    public class BridgeObject
+    public class BridgeObject : IV2RayConfig
     {
         /// <summary>
         /// Gets or sets the inbound tag for the bridge.
         /// </summary>
-        public string Tag { get; set; }
+        public string Tag { get; set; } = "";
 
         /// <summary>
         /// Gets or sets the domain name for the bridge.
@@ -13,9 +13,14 @@ namespace Shadowsocks.Interop.V2Ray.Reverse
         /// </summary>
         public string? Domain { get; set; }
 
-        public BridgeObject()
+        public BridgeObject(string tag)
         {
-            Tag = "";
+            this.Tag = tag;
+        }
+        public BridgeObject(string tag, string domain)
+        {
+            this.Tag = tag;
+            this.Domain = domain;
         }
     }
 }

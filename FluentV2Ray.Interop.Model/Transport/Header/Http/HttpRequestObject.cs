@@ -1,6 +1,4 @@
-using System.Collections.Generic;
-
-namespace Shadowsocks.Interop.V2Ray.Transport.Header.Http
+namespace FluentV2Ray.Interop.Model.Transport.Header.Http
 {
     public class HttpRequestObject
     {

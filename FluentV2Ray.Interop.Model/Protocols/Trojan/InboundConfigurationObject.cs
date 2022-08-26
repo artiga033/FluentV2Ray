@@ -1,16 +1,8 @@
-using System.Collections.Generic;
-
-namespace Shadowsocks.Interop.V2Ray.Protocols.Trojan
+namespace FluentV2Ray.Interop.Model.Protocols.Trojan
 {
-    public class InboundConfigurationObject
+    public class InboundConfigurationObject : InboundConfigurationObjectBase
     {
-        public List<ClientObject> Clients { get; set; }
-        public List<FallbackObject> Fallbacks { get; set; }
-
-        public InboundConfigurationObject()
-        {
-            Clients = new();
-            Fallbacks = new();
-        }
+        public IList<ClientObject> Clients { get; set; } = new List<ClientObject>();
+        public IList<FallbackObject> Fallbacks { get; set; } = new List<FallbackObject>();
     }
 }

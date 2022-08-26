@@ -1,21 +1,20 @@
-namespace Shadowsocks.Interop.V2Ray.Reverse
+using System.ComponentModel;
+
+namespace FluentV2Ray.Interop.Model.Reverse
 {
-    public class PortalObject
+    public class PortalObject : IV2RayConfig
     {
         /// <summary>
         /// Gets or sets the outbound tag for the portal.
         /// </summary>
-        public string Tag { get; set; }
+        [DefaultValue("")]
+        public string Tag { get; set; } = "";
 
         /// <summary>
         /// Gets or sets the domain name for the portal.
         /// </summary>
-        public string Domain { get; set; }
+        [DefaultValue("")]
+        public string Domain { get; set; } = "";
 
-        public PortalObject()
-        {
-            Tag = "";
-            Domain = "";
-        }
     }
 }

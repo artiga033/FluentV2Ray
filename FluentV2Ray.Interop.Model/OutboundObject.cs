@@ -1,22 +1,25 @@
-using Shadowsocks.Interop.V2Ray.Outbound;
-using Shadowsocks.Interop.V2Ray.Transport;
-using Shadowsocks.Interop.V2Ray;
-using System;
-using System.Net;
+using FluentV2Ray.Interop.Model.JsonHelpers;
+using FluentV2Ray.Interop.Model.Outbound;
 using FluentV2Ray.Interop.Model.Protocols;
+using FluentV2Ray.Interop.Model.Transport;
 using System.ComponentModel;
+using System.Text.Json.Serialization;
 
-namespace Shadowsocks.Interop.V2Ray
+namespace FluentV2Ray.Interop.Model
 {
-    public class OutboundObject : INotifyPropertyChanged // TODO >> Find another way, we are not going (and supposed) to implement this interface for v2ray config models.
+    [JsonConverter(typeof(OutboundObjectJsonConverter))]
+    public class OutboundObject : IV2RayConfig, INotifyPropertyChanged // TODO >> Find another way, we are not going (and supposed) to implement this interface for v2ray config models.
     {
         private string tag;
         public string Tag { get => tag; set { tag = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tag))); } }
+        [DefaultValue("0.0.0.0")]
         public string? SendThrough { get; set; }
         public Protocol Protocol { get; set; }
-        public object? Settings { get; set; }
+        public OutboundConfigurationObjectBase? Settings { get; set; }
         public StreamSettingsObject? StreamSettings { get; set; }
+        [DefaultValue(null)]
         public ProxySettingsObject? ProxySettings { get; set; }
+        [DefaultValue(null)]
         public MuxObject? Mux { get; set; }
 
         public OutboundObject()
@@ -35,11 +38,11 @@ namespace Shadowsocks.Interop.V2Ray
         /// <param name="username"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public static OutboundObject GetSocks(string name, DnsEndPoint socksEndPoint, string username = "", string password = "") => new()
+        public static OutboundObject GetSocks(string name, string ipAddress, int port) => new()
         {
             Tag = name,
             Protocol = Protocol.Socks,
-            Settings = new Protocols.Socks.OutboundConfigurationObject(socksEndPoint, username, password),
+            Settings = new Protocols.Socks.OutboundConfigurationObject(ipAddress, port),
         };
 
         /// <summary>

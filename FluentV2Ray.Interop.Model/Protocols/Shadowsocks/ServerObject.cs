@@ -1,8 +1,6 @@
-using System.Text.Json.Serialization;
-
-namespace Shadowsocks.Interop.V2Ray.Protocols.Shadowsocks
+namespace FluentV2Ray.Interop.Model.Protocols.Shadowsocks
 {
-    public class ServerObject
+    public class ServerObject : IV2RayConfig
     {
         public string? Email { get; set; }
 
@@ -15,15 +13,14 @@ namespace Shadowsocks.Interop.V2Ray.Protocols.Shadowsocks
         public string Password { get; set; }
 
         public int? Level { get; set; }
+        public bool IvCheck { get; set; }
 
         public ServerObject()
         {
             Address = "";
-            Port = 8388;
-            Method = "chacha20-ietf-poly1305";
+            Method = "";
             Password = "";
         }
-
         public ServerObject(string address, int port, string method, string password)
         {
             Address = address;

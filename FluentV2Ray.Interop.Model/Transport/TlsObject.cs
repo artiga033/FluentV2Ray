@@ -1,13 +1,14 @@
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
-namespace Shadowsocks.Interop.V2Ray.Transport
+using System.ComponentModel;
+namespace FluentV2Ray.Interop.Model.Transport
 {
-    public class TlsObject
+    public class TlsObject : IV2RayConfig
     {
-        public string ServerName { get; set; } = "";
+        public string? ServerName { get; set; }
+        [DefaultValue(false)]
         public bool AllowInsecure { get; set; }
-        public List<string>? Alpn { get; set; }
-        public List<CertificateObject>? Certificates { get; set; }
+        [DefaultValue(new[] { "h2", "http/1.1" })]
+        public IList<string>? Alpn { get; set; }
+        public IList<CertificateObject>? Certificates { get; set; }
         public bool DisableSystemRoot { get; set; }
 
     }

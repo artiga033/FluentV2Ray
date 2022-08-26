@@ -1,4 +1,4 @@
-namespace Shadowsocks.Interop.V2Ray
+namespace FluentV2Ray.Interop.Model
 {
     public class StatsObject
     {

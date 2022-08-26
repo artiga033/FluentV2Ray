@@ -1,17 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.Input;
 using FluentV2Ray.Controller;
 using FluentV2Ray.Interop.Model;
-using Shadowsocks.Interop.V2Ray;
-using System.Collections.ObjectModel;
-using CommunityToolkit.Mvvm.Input;
 using FluentV2Ray.Interop.Model.Protocols;
-using P = Shadowsocks.Interop.V2Ray.Protocols;
-using Shadowsocks.Interop.V2Ray.Transport;
+using FluentV2Ray.Interop.Model.Transport;
+using System;
+using System.Collections.ObjectModel;
+using P = FluentV2Ray.Interop.Model.Protocols;
 
 namespace FluentV2Ray.ViewModels
 {
@@ -69,10 +64,10 @@ namespace FluentV2Ray.ViewModels
         {
             Outbounds.Add(protocol switch
             {
-                Protocol.Vmess => new OutboundObject() { Tag = "New Vmess Config", Protocol = Protocol.Vmess, Settings = new P.VMess.OutboundConfigurationObject(),StreamSettings=StreamSettingsObject.DefaultWsTlsAllInit() },
-                Protocol.Shadowsocks => new OutboundObject() { Tag = "New Shadowsocks Config", Protocol = Protocol.Shadowsocks, Settings = new P.Shadowsocks.OutboundConfigurationObject(),StreamSettings = StreamSettingsObject.DefaultWsTlsAllInit() },
-                //Protocol.Http => new OutboundObject() { Tag = "New Http Config", Protocol = Protocol.Http, Settings = new Protocols.Http.OutboundConfigurationObject() },
-                _ => throw new NotSupportedException()
+                Protocol.Vmess => new OutboundObject() { Tag = "New Vmess Config", Protocol = Protocol.Vmess, Settings = new P.VMess.OutboundConfigurationObject("", 0, ""), StreamSettings = StreamSettingsObject.DefaultAllInit() },
+                Protocol.Shadowsocks => new OutboundObject() { Tag = "New Shadowsocks Config", Protocol = Protocol.Shadowsocks, Settings = new P.Shadowsocks.OutboundConfigurationObject("", 0, "", ""), StreamSettings = StreamSettingsObject.DefaultAllInit() },
+                Protocol.Http => new OutboundObject() { Tag = "New Http Config", Protocol = Protocol.Http, Settings = new P.Http.OutboundConfigurationObject("", 0) },
+                _ => throw new NotImplementedException()
             });
         }
         public void Delete(OutboundObject? target)
@@ -87,9 +82,9 @@ namespace FluentV2Ray.ViewModels
             _configController.Save();
             _processController.Restart();
         }
-       
+
         // TODO: From here, it seems we'd better make a interface for all the outbound settings model class.
-        private T? TryConvertOutboutSetting<T>(OutboundObject outboundObject) where T : class
+        private T? TryConvertOutboutSetting<T>(OutboundObject outboundObject) where T : OutboundConfigurationObjectBase
         {
             if (outboundObject.Settings == null)
                 outboundObject.Settings = Activator.CreateInstance<T>(); ;

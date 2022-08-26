@@ -1,18 +1,10 @@
-namespace Shadowsocks.Interop.V2Ray.Policy
+namespace FluentV2Ray.Interop.Model.Policy
 {
-    public class SystemPolicyObject
+    public class SystemPolicyObject : IV2RayConfig
     {
-        public bool StatsInboundUplink { get; set; }
-        public bool StatsInboundDownlink { get; set; }
-        public bool StatsOutboundUplink { get; set; }
-        public bool StatsOutboundDownlink { get; set; }
-
-        public static SystemPolicyObject Default => new()
-        {
-            StatsInboundUplink = true,
-            StatsInboundDownlink = true,
-            StatsOutboundUplink = true,
-            StatsOutboundDownlink = true,
-        };
+        public bool StatsInboundUplink { get; set; } = false;
+        public bool StatsInboundDownlink { get; set; } = false;
+        public bool StatsOutboundUplink { get; set; } = false;
+        public bool StatsOutboundDownlink { get; set; } = false;
     }
 }

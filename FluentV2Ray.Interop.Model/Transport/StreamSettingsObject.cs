@@ -1,15 +1,15 @@
-namespace Shadowsocks.Interop.V2Ray.Transport
+using System.ComponentModel;
+
+namespace FluentV2Ray.Interop.Model.Transport
 {
     public class StreamSettingsObject : TransportObject
     {
-        private SockoptObject? sockopt;
-        private TlsObject? tlsSettings;
-
         /// <summary>
         /// Gets or sets the transport protocol type.
         /// Defaults to "tcp".
         /// Available values: "tcp" | "kcp" | "ws" | "http" | "domainsocket" | "quic"
         /// </summary>
+        [DefaultValue("tcp")]
         public string? Network { get; set; }
 
         /// <summary>
@@ -17,21 +17,21 @@ namespace Shadowsocks.Interop.V2Ray.Transport
         /// Defaults to "none" (no encryption).
         /// Available values: "none" | "tls"
         /// </summary>
+        [DefaultValue("none")]
         public string? Security { get; set; }
 
-        public TlsObject? TlsSettings { get => CacheGetter(tlsSettings); set => tlsSettings = value; }
-        public SockoptObject? Sockopt { get => CacheGetter(sockopt); set => sockopt = value; }
+        public TlsObject? TlsSettings { get; set; }
+        public SockoptObject? Sockopt { get; set; }
 
-        public static StreamSettingsObject DefaultWsTls() => new()
+        public static StreamSettingsObject DefaultAllInit() => DefaultAllInit("tcp", "none");
+
+        /// <param name="network">Available values: "tcp" | "kcp" | "ws" | "http" | "domainsocket" | "quic"</param>
+        /// <param name="security">Available values: "none" | "tls"</param>
+        /// <returns></returns>
+        public static StreamSettingsObject DefaultAllInit(string network, string security) => new()
         {
-            Network = "ws",
-            Security = "tls",
-            TlsSettings = new(),
-        };
-        public static StreamSettingsObject DefaultWsTlsAllInit() => new()
-        {
-            Network = "ws",
-            Security = "tls",
+            Network = network,
+            Security = security,
             TlsSettings = new(),
             WsSettings = new(),
             DsSettings = new(),

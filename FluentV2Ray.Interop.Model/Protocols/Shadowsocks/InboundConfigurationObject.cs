@@ -1,25 +1,20 @@
-using System;
-using System.Text.Json.Serialization;
-
-namespace Shadowsocks.Interop.V2Ray.Protocols.Shadowsocks
+namespace FluentV2Ray.Interop.Model.Protocols.Shadowsocks
 {
-    public class InboundConfigurationObject
+    public class InboundConfigurationObject : InboundConfigurationObjectBase
     {
         public string? Email { get; set; }
-        
+
         public string Method { get; set; }
 
         public string Password { get; set; }
 
-        public int? Level { get; set; }
+        public int Level { get; set; } = 0;
 
-        public string Network { get; set; }
-
-        public InboundConfigurationObject()
+        public string Network { get; set; } = "tcp";
+        public InboundConfigurationObject(string method, string password)
         {
-            Method = "chacha20-ietf-poly1305";
-            Password = Guid.NewGuid().ToString();
-            Network = "tcp,udp";
+            Method = method;
+            Password = password;
         }
     }
 }

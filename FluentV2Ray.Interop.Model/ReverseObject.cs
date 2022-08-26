@@ -1,17 +1,10 @@
-using Shadowsocks.Interop.V2Ray.Reverse;
-using System.Collections.Generic;
+using FluentV2Ray.Interop.Model.Reverse;
 
-namespace Shadowsocks.Interop.V2Ray
+namespace FluentV2Ray.Interop.Model
 {
-    public class ReverseObject
+    public class ReverseObject : IV2RayConfig
     {
-        public List<BridgeObject> Bridges { get; set; }
-        public List<PortalObject> Portals { get; set; }
-
-        public ReverseObject()
-        {
-            Bridges = new();
-            Portals = new();
-        }
+        public IList<BridgeObject> Bridges { get; set; } = new List<BridgeObject>();
+        public IList<PortalObject> Portals { get; set; } = new List<PortalObject>();
     }
 }

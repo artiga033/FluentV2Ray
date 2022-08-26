@@ -8,11 +8,11 @@
     xmlns:local="using:FluentV2Ray.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="using:FluentV2Ray.Interop.Model"
-    xmlns:models="using:Shadowsocks.Interop.V2Ray"
+    xmlns:models="using:FluentV2Ray.Interop.Model"
     xmlns:protocol="using:FluentV2Ray.Interop.Model.Protocols"
-    xmlns:ss="using:Shadowsocks.Interop.V2Ray.Protocols.Shadowsocks"
+    xmlns:ss="using:FluentV2Ray.Interop.Model.Protocols.Shadowsocks"
     xmlns:uc="using:FluentV2Ray.Controls"
-    xmlns:vmess="using:Shadowsocks.Interop.V2Ray.Protocols.VMess"
+    xmlns:vmess="using:FluentV2Ray.Interop.Model.Protocols.VMess"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
     <Grid>
@@ -29,17 +29,17 @@
             <AppBarButton Icon="Add" Label="{ex:Locale Key=Add}">
                 <AppBarButton.Flyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem Command="{x:Bind Path=ViewModel.AddCommand}" Text="{ex:Locale Key=Add, After=Vmess}">
+                        <MenuFlyoutItem Command="{x:Bind Path=ViewModel.AddCommand}" Text="{ex:Locale Key=Add, After=Vmess, Seprator=' '}">
                             <MenuFlyoutItem.CommandParameter>
                                 <protocol:Protocol>Vmess</protocol:Protocol>
                             </MenuFlyoutItem.CommandParameter>
                         </MenuFlyoutItem>
-                        <MenuFlyoutItem Command="{x:Bind Path=ViewModel.AddCommand}" Text="{ex:Locale Key=Add, After=Shadowsocks}">
+                        <MenuFlyoutItem Command="{x:Bind Path=ViewModel.AddCommand}" Text="{ex:Locale Key=Add, After=Shadowsocks, Seprator=' '}">
                             <MenuFlyoutItem.CommandParameter>
                                 <protocol:Protocol>Shadowsocks</protocol:Protocol>
                             </MenuFlyoutItem.CommandParameter>
                         </MenuFlyoutItem>
-                        <MenuFlyoutItem Command="{x:Bind Path=ViewModel.AddCommand}" Text="{ex:Locale Key=Add, After=HTTP}">
+                        <MenuFlyoutItem Command="{x:Bind Path=ViewModel.AddCommand}" Text="{ex:Locale Key=Add, After=HTTP, Seprator=' '}">
                             <MenuFlyoutItem.CommandParameter>
                                 <protocol:Protocol>Http</protocol:Protocol>
                             </MenuFlyoutItem.CommandParameter>

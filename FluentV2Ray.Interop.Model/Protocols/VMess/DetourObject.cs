@@ -1,12 +1,12 @@
-namespace Shadowsocks.Interop.V2Ray.Protocols.VMess
+namespace FluentV2Ray.Interop.Model.Protocols.VMess
 {
-    public class DetourObject
+    public class DetourObject : IV2RayConfig
     {
         public string To { get; set; }
 
-        public DetourObject()
+        public DetourObject(string tagToDetour)
         {
-            To = "";
+            To = tagToDetour;
         }
     }
 }

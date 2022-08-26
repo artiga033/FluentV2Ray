@@ -1,1 +1,0 @@
-### Code here from [shadowsocks/shadowsocks-windows](https://github.com/shadowsocks/shadowsocks-windows/tree/dependabot/add-v2-config-file/Shadowsocks.Interop/V2Ray) ([GPL V3 License](https://github.com/shadowsocks/shadowsocks-windows/blob/main/LICENSE.txt))

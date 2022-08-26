@@ -2,18 +2,9 @@
 using FluentV2Ray.Views;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using WinRT.Interop;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -54,7 +45,11 @@ namespace FluentV2Ray
         }
         private void OnSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            if (args.SelectedItemContainer != null)
+            if (args.IsSettingsSelected)
+            {
+                this.rootFrame.Navigate(typeof(SettingsPage));
+            }
+            else if (args.SelectedItemContainer != null)
             {
                 this.rootFrame.Navigate(_pages.First(x => x.Tag == (string)args.SelectedItemContainer.Tag).Page);
             }

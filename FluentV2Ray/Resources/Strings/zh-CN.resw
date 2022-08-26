@@ -255,4 +255,22 @@
   <data name="Exit" xml:space="preserve">
     <value>退出</value>
   </data>
+  <data name="CoreLog" xml:space="preserve">
+    <value>Core日志</value>
+  </data>
+  <data name="Log" xml:space="preserve">
+    <value>日志</value>
+  </data>
+  <data name="Undefined" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Vmess" xml:space="preserve">
+    <value>Vmess</value>
+  </data>
+  <data name="Shadowsocks" xml:space="preserve">
+    <value>Shadowsocks</value>
+  </data>
+  <data name="HTTP" xml:space="preserve">
+    <value>HTTP</value>
+  </data>
 </root>

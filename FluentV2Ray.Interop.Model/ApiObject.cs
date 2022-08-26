@@ -1,24 +1,20 @@
-using System.Collections.Generic;
+using System.ComponentModel;
 
-namespace Shadowsocks.Interop.V2Ray
+namespace FluentV2Ray.Interop.Model
 {
-    public class ApiObject
+    public class ApiObject : IV2RayConfig
     {
         /// <summary>
         /// Gets or sets the outbound tag for the API.
         /// </summary>
-        public string Tag { get; set; }
+        [DefaultValue("")]
+        public string Tag { get; set; } = "";
 
         /// <summary>
         /// Gets or sets the list of API services to enable.
         /// </summary>
-        public List<string> Services { get; set; }
-
-        public ApiObject()
-        {
-            Tag = "";
-            Services = new();
-        }
+        [DefaultValue(new string[] { })]
+        public IList<string> Services { get; set; } = new List<string>();
 
         /// <summary>
         /// Gets the default API object.
@@ -26,7 +22,7 @@ namespace Shadowsocks.Interop.V2Ray
         public static ApiObject Default => new()
         {
             Tag = "api",
-            Services = new()
+            Services = new List<string>()
             {
                 "HandlerService",
                 "LoggerService",
