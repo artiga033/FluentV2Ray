@@ -273,4 +273,22 @@
   <data name="HTTP" xml:space="preserve">
     <value>HTTP</value>
   </data>
+  <data name="InboundSettings" xml:space="preserve">
+    <value>Inbound Settings</value>
+  </data>
+  <data name="Inbound" xml:space="preserve">
+    <value>Inbound</value>
+  </data>
+  <data name="SocksInboundPort" xml:space="preserve">
+    <value>Socks Listen Port</value>
+  </data>
+  <data name="SocksInboundPortDescription" xml:space="preserve">
+    <value>The port to listen for a local socks proxy inbound</value>
+  </data>
+  <data name="HttpInboundPort" xml:space="preserve">
+    <value>HTTP Listen Port</value>
+  </data>
+  <data name="HttpInboundPortDescription" xml:space="preserve">
+    <value>The port to listen for a local http proxy inbound</value>
+  </data>
 </root>

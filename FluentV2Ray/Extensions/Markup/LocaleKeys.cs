@@ -56,6 +56,9 @@
         HTTP,
         InboundSettings,
         Inbound,
-        Socks
+        SocksInboundPort,
+        SocksInboundPortDescription,
+        HttpInboundPort,
+        HttpInboundPortDescription,
     }
 }

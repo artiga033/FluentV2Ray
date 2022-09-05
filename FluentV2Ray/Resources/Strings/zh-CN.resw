@@ -273,4 +273,22 @@
   <data name="HTTP" xml:space="preserve">
     <value>HTTP</value>
   </data>
+  <data name="InboundSettings" xml:space="preserve">
+    <value>入站设置</value>
+  </data>
+  <data name="Inbound" xml:space="preserve">
+    <value>入站</value>
+  </data>
+  <data name="SocksInboundPort" xml:space="preserve">
+    <value>Socks 入站端口</value>
+  </data>
+  <data name="SocksInboundPortDescription" xml:space="preserve">
+    <value>本地Socks代理的入站端口</value>
+  </data>
+  <data name="HttpInboundPort" xml:space="preserve">
+    <value>HTTP 入站端口</value>
+  </data>
+  <data name="HttpInboundPortDescription" xml:space="preserve">
+    <value>本地HTTP入站代理的监听端口</value>
+  </data>
 </root>

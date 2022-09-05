@@ -34,12 +34,18 @@
                     HorizontalContentAlignment="Left"
                     Header="{ex:Locale Key=InboundSettings}">
                     <StackPanel>
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Vertical">
                             <uc:SettingItem
                                 HorizontalAlignment="Stretch"
-                                Description="TESTDSTAD"
-                                Header="Test">
-                                <NumberBox PlaceholderText="1080" />
+                                Description="{ex:Locale Key=HttpInboundPortDescription}"
+                                Header="{ex:Locale Key=HttpInboundPort}">
+                                <NumberBox Text="{x:Bind ViewModel.HttpInbound.Port, Mode=TwoWay}" />
+                            </uc:SettingItem>
+                            <uc:SettingItem
+                                HorizontalAlignment="Stretch"
+                                Description="{ex:Locale Key=SocksInboundPortDescription}"
+                                Header="{ex:Locale Key=SocksInboundPort}">
+                                <NumberBox Text="{x:Bind ViewModel.SocksInbound.Port, Mode=TwoWay}" />
                             </uc:SettingItem>
                         </StackPanel>
                     </StackPanel>
